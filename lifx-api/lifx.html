@@ -1,0 +1,84 @@
+<!--
+  Copyright 2016 Alisdair Smyth
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<!--
+  Configuration Node
+-->
+<script type="text/javascript">
+    RED.nodes.registerType('lifx-config',{
+        category: 'config',
+        defaults: {
+            token: {value:"",required:true}
+        },
+        label: function() {
+            return this.name || this.token;
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="lifx-config">
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> <span data-i18n="lifx-api.label.name"></span></label>
+        <input type="text" id="node-config-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-token"><i class="fa fa-key"></i> <span data-i18n="lifx-api.label.token"></span></label>
+        <input type="text" id="node-config-input-token">
+    </div>
+</script>
+
+<!--
+  Toggle Power Node
+-->
+<script type="text/javascript">
+    RED.nodes.registerType('lifx-toggle-power',{
+        category: "lifx",
+        defaults: {
+            "api" : {value: "", type: "lifx-config"}
+            "selector": {value: ""}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "light.png",
+        color: "#FFFFFF",
+        label: function() {
+            return this.name || "Toggle Power"
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="lifx-toggle-power">
+    <div class="form-row">
+        <label for="node-input-api"><i class="fa fa-key"></i> <span data-i18n="lifx-api.label.api"></span></label>
+        <input type="text" id="node-input-api">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="lifx-api.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]lifx-api.placeholder.name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-selector"><i class="fa fa-lightbulb-o"></i> <span data-i18n="lifx-api.label.selector"></span></label>
+        <input type="text" id="node-input-selector" data-i18n="[placeholder]lifx-api.placeholder.selector">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="lifx-toggle-power">
+   <p>Turn off lights if any of them are on, or turn them on if they are all off. All lights matched by the selector will share the same power state after this action. Physically powered off lights are ignored.</p>
+   <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
+   <ul>
+       <li> <code>selector</code>: The selector to limit which lights are toggled.</li>
+   </ul>
+</script>

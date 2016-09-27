@@ -1,0 +1,26 @@
+{
+  "name": "node-red-contrib-lifx-api",
+  "description": "A collection of Node-RED nodes to control LIFX globes using the HTTP Remote Control API.",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alisdairjsmyth/node-red-contrib-lifx-api.git"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "lifx",
+    "home+automation"
+  ],
+  "node-red": {
+    "nodes": {
+      "lifx-api": "lifx-api/lifx.js"
+    }
+  },
+  "author": {
+    "name": "Alisdair Smyth",
+    "email": "alisdair.smyth@gmail.com"
+  },
+  "dependencies": {
+    "lifx-api": "^1.0.1"
+  }
+}
