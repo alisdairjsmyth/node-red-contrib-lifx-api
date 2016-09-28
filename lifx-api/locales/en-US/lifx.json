@@ -10,7 +10,8 @@
             "period":     "Period",
             "cycles":     "Cycles",
             "persist":    "Persist",
-            "power_on":   "Power On"
+            "power_on":   "Power On",
+            "peak":       "Peak"
         },
         "placeholder" : {
             "name":       "Name",
@@ -20,7 +21,8 @@
             "period":     "The time in seconds for one cyles of the effect",
             "cycles":     "The number of times to repeat the effect",
             "persist":    "If false set the light back to its previous value when effect ends",
-            "power_on":   "If true, turn the bulb on if it is not already on"
+            "power_on":   "If true, turn the bulb on if it is not already on",
+            "peak":       "Defines where in a period the target color is at its maximum. Minimum 0.0, maximum 1.0."
         },
         "error" : {
         }

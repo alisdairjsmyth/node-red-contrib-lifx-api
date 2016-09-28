@@ -163,3 +163,94 @@
         }
     });
 </script>
+
+<!--
+  Breathe Effect Node
+-->
+<script type="text/x-red" data-template-name="lifx-breathe-effect">
+    <div class="form-row">
+        <label for="node-input-api"><i class="fa fa-key"></i> <span data-i18n="lifx-api.label.api"></span></label>
+        <input type="text" id="node-input-api">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="lifx-api.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]lifx-api.placeholder.name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-selector"><i class="fa fa-lightbulb-o"></i> <span data-i18n="lifx-api.label.selector"></span></label>
+        <input type="text" id="node-input-selector" data-i18n="[placeholder]lifx-api.placeholder.selector">
+    </div>
+    <div class="form-row">
+        <label for="node-input-color"></i> <span data-i18n="lifx-api.label.color"></span></label>
+        <input type="text" id="node-input-color" data-i18n="[placeholder]lifx-api.placeholder.color">
+    </div>
+    <div class="form-row">
+        <label for="node-input-from_color"></i> <span data-i18n="lifx-api.label.from_color"></span></label>
+        <input type="text" id="node-input-from_color" data-i18n="[placeholder]lifx-api.placeholder.from_color">
+    </div>
+    <div class="form-row">
+        <label for="node-input-period"></i> <span data-i18n="lifx-api.label.period"></span></label>
+        <input type="text" id="node-input-period" data-i18n="[placeholder]lifx-api.placeholder.period">
+    </div>
+    <div class="form-row">
+        <label for="node-input-cycles"></i> <span data-i18n="lifx-api.label.cycles"></span></label>
+        <input type="text" id="node-input-cycles" data-i18n="[placeholder]lifx-api.placeholder.cycles">
+    </div>
+    <div class="form-row">
+        <label for="node-input-persist"></i> <span data-i18n="lifx-api.label.persist"></span></label>
+        <input type="text" id="node-input-persist" data-i18n="[placeholder]lifx-api.placeholder.persist">
+    </div>
+    <div class="form-row">
+        <label for="node-input-power_on"></i> <span data-i18n="lifx-api.label.power_on"></span></label>
+        <input type="text" id="node-input-power_on" data-i18n="[placeholder]lifx-api.placeholder.power_on">
+    </div>
+    <div class="form-row">
+        <label for="node-input-peak"></i> <span data-i18n="lifx-api.label.peak"></span></label>
+        <input type="text" id="node-input-peak" data-i18n="[placeholder]lifx-api.placeholder.peak">
+    </div>
+
+</script>
+
+<script type="text/x-red" data-help-name="lifx-breathe-effect">
+   <p>Performs a breathe effect by slowly fading between the given colors. Use the parameters to tweak the effect.</p>
+   <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
+   <ul>
+       <li> <code>selector</code>: The selector to limit which lights are toggled.</li>
+       <li> <code>color</code>: The color to use for the pulse effect.</li>
+       <li> <code>from_color</code>: The color to start the effect from.</li>
+       <li> <code>period</code>: The time in seconds for one cyles of the effect.</li>
+       <li> <code>cycles</code>: The number of times to repeat the effect.</li>
+       <li> <code>persist</code>: If false set the light back to its previous value when effect ends, if true leave the last effect color.</li>
+       <li> <code>power_on</code>: If true, turn the bulb on if it is not already on.</li>
+       <li> <code>peak</code>: Defines where in a period the target color is at its maximum. Minimum 0.0, maximum 1.0.</li>
+   </ul>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType("lifx-breathe-effect",{
+        category: "lifx",
+        defaults: {
+            "api" : {value:"",type:"lifx-config"},
+            "selector": {value:""},
+            "color": {value:""},
+            "from_color": {value:""},
+            "period": {value:"1",validate:RED.validators.number()},
+            "cycles": {value:"5",validate:RED.validators.number()},
+            "persist": {value:false},
+            "power_on": {value:true},
+            "peak": {value:0.5,
+                validate: function (v) {
+                    var n = Number(v);
+                    return ((n >= 0) && (n <= 1));
+                }
+               }
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "light.png",
+        color: "#FFFFFF",
+        label: function() {
+            return this.name || "Breathe Effect";
+        }
+    });
+</script>

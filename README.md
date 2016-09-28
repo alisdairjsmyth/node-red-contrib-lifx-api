@@ -59,13 +59,28 @@ Sample `msg.payload`:
         "power_on": true
     }
 
+### Breathe Effect
+Performs a breathe effect by slowly fading between the given colors.
+
+Sample `msg.payload`:
+
+    {
+        "selector": "label:Lamp",
+        "color": "white",
+        "from_color": "red",
+        "period": 1,
+        "cycles": 5,
+        "persist": false,
+        "power_on": true,
+        "peak": 0.5
+    }
+
 ## To Do
 The intent is for this collection of nodes to expose the full capability of the
 LIFX HTTP Remote Control API.  The following capability is not presently exposed:
 * List Lights
 * Set State
 * Set States
-* Breathe Effect
 * Cycle
 * List Scenes
 * Activate Scene
