@@ -1,7 +1,7 @@
 {
   "name": "node-red-contrib-lifx-api",
   "description": "A collection of Node-RED nodes to control LIFX globes using the HTTP Remote Control API.",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alisdairjsmyth/node-red-contrib-lifx-api.git"
