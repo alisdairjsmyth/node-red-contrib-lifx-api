@@ -6,21 +6,21 @@
             "name":       "Name",
             "selector":   "Selector",
             "color":      "Color",
-            "from-color": "From Color",
+            "from_color": "From Color",
             "period":     "Period",
             "cycles":     "Cycles",
             "persist":    "Persist",
-            "power-on":   "Power On"
+            "power_on":   "Power On"
         },
         "placeholder" : {
             "name":       "Name",
             "selector":   "Selector string",
             "color":      "The color to use for the effect",
-            "from-color": "The color to start the effect from",
+            "from_color": "The color to start the effect from",
             "period":     "The time in seconds for one cyles of the effect",
             "cycles":     "The number of times to repeat the effect",
             "persist":    "If false set the light back to its previous value when effect ends",
-            "power-on":   "If true, turn the bulb on if it is not already on"
+            "power_on":   "If true, turn the bulb on if it is not already on"
         },
         "error" : {
         }

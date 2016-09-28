@@ -38,15 +38,34 @@ Refer to the LIFX documentation for [Selectors](https://api.developer.lifx.com/d
 ### Toggle Power
 Turn off lights if any of them are on, or turn them on if they are all off. All lights matched by the selector will share the same power state after this action. Physically powered off lights are ignored.
 
+Sample `msg.payload`:
+
+    {
+        "selector": "label:Lamp"
+    }
+
+### Pulse Effect
+Performs a pulse effect by quickly flashing between the given colors.
+
+Sample `msg.payload`:
+
+    {
+        "selector": "label:Lamp",
+        "color": "white",
+        "from_color": "red",
+        "period": 1,
+        "cycles": 5,
+        "persist": false,
+        "power_on": true
+    }
+
 ## To Do
 The intent is for this collection of nodes to expose the full capability of the
 LIFX HTTP Remote Control API.  The following capability is not presently exposed:
 * List Lights
 * Set State
 * Set States
-* Toggle Power
 * Breathe Effect
-* Pulse Effect
 * Cycle
 * List Scenes
 * Activate Scene
