@@ -17,18 +17,6 @@
 <!--
   Configuration Node
 -->
-<script type="text/javascript">
-    RED.nodes.registerType('lifx-config',{
-        category: 'config',
-        defaults: {
-            token: {value:"",required:true}
-        },
-        label: function() {
-            return this.name || this.token;
-        }
-    });
-</script>
-
 <script type="text/x-red" data-template-name="lifx-config">
     <div class="form-row">
         <label for="node-config-input-name"><i class="fa fa-tag"></i> <span data-i18n="lifx-api.label.name"></span></label>
@@ -40,25 +28,21 @@
     </div>
 </script>
 
-<!--
-  Toggle Power Node
--->
 <script type="text/javascript">
-    RED.nodes.registerType('lifx-toggle-power',{
-        category: "lifx",
+    RED.nodes.registerType("lifx-config",{
+        category: "config",
         defaults: {
-            "api" : {value: "", type: "lifx-config"}
-            "selector": {value: ""}
+            token: {value:"",required:true}
         },
-        inputs: 1,
-        outputs: 0,
-        icon: "light.png",
-        color: "#FFFFFF",
         label: function() {
-            return this.name || "Toggle Power"
+            return this.name || this.token;
         }
     });
 </script>
+
+<!--
+  Toggle Power Node
+-->
 
 <script type="text/x-red" data-template-name="lifx-toggle-power">
     <div class="form-row">
@@ -81,4 +65,21 @@
    <ul>
        <li> <code>selector</code>: The selector to limit which lights are toggled.</li>
    </ul>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType("lifx-toggle-power",{
+        category: "lifx",
+        defaults: {
+            "api" : {value:"",type:"lifx-config"},
+            "selector": {value:""}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "light.png",
+        color: "#FFFFFF",
+        label: function() {
+            return this.name || "Toggle Power";
+        }
+    });
 </script>
