@@ -35,10 +35,57 @@ Each node can be configured, or can receive settings in the triggering `msg`.
 
 Refer to the LIFX documentation for [Selectors](https://api.developer.lifx.com/docs/selectors) and [Colors](https://api.developer.lifx.com/docs/colors).
 
+### List Lights
+Gets lights belonging to the authenticated account. Filter the lights using selectors.
+Properties such as id, label, group and location can be used in selectors.
+
+Sample input `msg.payload`:
+
+    {
+        "selector": "all"
+    }
+
+Sample output `msg.payload`:
+
+    [
+      {
+        "id": "d3b2f2d97452",
+        "uuid": "8fa5f072-af97-44ed-ae54-e70fd7bd9d20",
+        "label": "Left Lamp",
+        "connected": true,
+        "power": "on",
+        "color": {
+          "hue": 250.0,
+          "saturation": 0.5,
+          "kelvin": 3500
+        },
+        "brightness": 0.5,
+        "group": {
+          "id": "1c8de82b81f445e7cfaafae49b259c71",
+          "name": "Lounge"
+        },
+        "location": {
+          "id": "1d6fe8ef0fde4c6d77b0012dc736662c",
+          "name": "Home"
+        },
+        "last_seen": "2015-03-02T08:53:02.867+00:00",
+        "seconds_since_seen": 0.002869418,
+        "product": {
+          "name": "Original 1000",
+          "company": "LIFX",
+          "identifier": "lifx_original_1000",
+          "capabilities": {
+            "has_color": true,
+            "has_variable_color_temp": true
+          }
+        }
+      }
+    ]
+
 ### Toggle Power
 Turn off lights if any of them are on, or turn them on if they are all off. All lights matched by the selector will share the same power state after this action. Physically powered off lights are ignored.
 
-Sample `msg.payload`:
+Sample input `msg.payload`:
 
     {
         "selector": "label:Lamp"
@@ -47,7 +94,7 @@ Sample `msg.payload`:
 ### Pulse Effect
 Performs a pulse effect by quickly flashing between the given colors.
 
-Sample `msg.payload`:
+Sample input `msg.payload`:
 
     {
         "selector": "label:Lamp",
@@ -62,7 +109,7 @@ Sample `msg.payload`:
 ### Breathe Effect
 Performs a breathe effect by slowly fading between the given colors.
 
-Sample `msg.payload`:
+Sample input `msg.payload`:
 
     {
         "selector": "label:Lamp",
@@ -78,7 +125,6 @@ Sample `msg.payload`:
 ## To Do
 The intent is for this collection of nodes to expose the full capability of the
 LIFX HTTP Remote Control API.  The following capability is not presently exposed:
-* List Lights
 * Set State
 * Set States
 * Cycle

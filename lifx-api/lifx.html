@@ -131,7 +131,7 @@
    <p>Performs a pulse effect by quickly flashing between the given colors. Use the parameters to tweak the effect.</p>
    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
    <ul>
-       <li> <code>selector</code>: The selector to limit which lights are toggled.</li>
+       <li> <code>selector</code>: The selector to limit which lights will run the effect.</li>
        <li> <code>color</code>: The color to use for the pulse effect.</li>
        <li> <code>from_color</code>: The color to start the effect from.</li>
        <li> <code>period</code>: The time in seconds for one cyles of the effect.</li>
@@ -215,7 +215,7 @@
    <p>Performs a breathe effect by slowly fading between the given colors. Use the parameters to tweak the effect.</p>
    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
    <ul>
-       <li> <code>selector</code>: The selector to limit which lights are toggled.</li>
+       <li> <code>selector</code>: The selector to limit which lights will run the effect.</li>
        <li> <code>color</code>: The color to use for the pulse effect.</li>
        <li> <code>from_color</code>: The color to start the effect from.</li>
        <li> <code>period</code>: The time in seconds for one cyles of the effect.</li>
@@ -251,6 +251,86 @@
         color: "#FFFFFF",
         label: function() {
             return this.name || "Breathe Effect";
+        }
+    });
+</script>
+
+<!--
+  List Lights Node
+-->
+<script type="text/x-red" data-template-name="lifx-list-lights">
+    <div class="form-row">
+        <label for="node-input-api"><i class="fa fa-key"></i> <span data-i18n="lifx-api.label.api"></span></label>
+        <input type="text" id="node-input-api">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="lifx-api.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]lifx-api.placeholder.name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-selector"><i class="fa fa-lightbulb-o"></i> <span data-i18n="lifx-api.label.selector"></span></label>
+        <input type="text" id="node-input-selector" data-i18n="[placeholder]lifx-api.placeholder.selector">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="lifx-list-lights">
+   <p>Gets lights belonging to the authenticated account.</p>
+   <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
+   <ul>
+       <li> <code>selector</code>: The selector to limit which lights are to be listed.</li>
+   </ul>
+   <p>The node emits <msg.payload> containing a collection of light objects.</li>
+   <ul>
+       <li> <code>id</code>:</li>
+       <li> <code>uuid</code>:</li>
+       <li> <code>label</code>:</li>
+       <li> <code>connected</code>:</li>
+       <li> <code>power</code>:</li>
+       <li> <code>color</code></li>
+       <ul>
+           <li> <code>hue</code>:</li>
+           <li> <code>saturation</code>:</li>
+           <li> <code>kelvin</code>:</li>
+       </ul>
+       <li> <code>brightness</code>:</li>
+       <li> <code>group</code></li>
+       <ul>
+           <li> <code>id</code>:</li>
+           <li> <code>name</code>:</li>
+       </ul>
+       <li> <code>location</code></li>
+       <ul>
+           <li> <code>id</code>:</li>
+           <li> <code>name</code>:</li>
+       </ul>
+       <li> <code>last_seen</code>:</li>
+       <li> <code>seconds_since_seen</code>:</li>
+       <li> <code>product</code></li>
+       <ul>
+           <li> <code>name</code>:</li>
+           <li> <code>company</code>:</li>
+           <li> <code>capabilities</code></li>
+           <ul>
+               <li> <code>has_colour</code>:</li>
+               <li> <code>has_variable_color_temp</code>:</li>
+           </ul>
+       </ul>
+   </ul>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType("lifx-list-lights",{
+        category: "lifx",
+        defaults: {
+            "api" : {value:"",type:"lifx-config"},
+            "selector": {value:""}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "light.png",
+        color: "#FFFFFF",
+        label: function() {
+            return this.name || "List Lights";
         }
     });
 </script>

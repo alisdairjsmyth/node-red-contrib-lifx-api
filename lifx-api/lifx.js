@@ -105,4 +105,22 @@ module.exports = function(RED) {
     }
     RED.nodes.registerType("lifx-breathe-effect",breatheEffect);
 
+    function listLights(config) {
+        RED.nodes.createNode(this,config);
+        this.selector   = config.selector;
+
+        // Retrieve the config node
+        this.api = RED.nodes.getNode(config.api);
+
+        var lifx = new lifxObj(this.api.token);
+        var node = this;
+        this.on('input', function(msg) {
+            var selector   = (typeof msg.payload.selector   != "undefined") ? msg.payload.selector   : this.selector;
+            lifx.listLights(selector, function(body) {
+                msg.payload = body;
+                node.send(msg);
+            });
+        });
+    }
+    RED.nodes.registerType("lifx-list-lights",listLights);
 };
