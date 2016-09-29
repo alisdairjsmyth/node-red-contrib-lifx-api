@@ -124,5 +124,4 @@ Sample input `msg.payload`:
 
 ## To Do
 The intent is for this collection of nodes to expose the full capability of the
-LIFX HTTP Remote Control API.  Several capabilities are not presently exposed
-by the wrapper library [lifx-api](https://www.npmjs.com/package/lifx-api).
+LIFX HTTP Remote Control API.
