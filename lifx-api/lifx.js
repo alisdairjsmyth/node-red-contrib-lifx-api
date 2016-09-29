@@ -63,23 +63,16 @@ module.exports = function(RED) {
         var node = this;
         this.on('input', function(msg) {
             var selector   = (typeof msg.payload.selector   != "undefined") ? msg.payload.selector   : this.selector;
-            var color      = (typeof msg.payload.color      != "undefined") ? msg.payload.color      : this.color;
-            var from_color = (typeof msg.payload.from_color != "undefined") ? msg.payload.from_color : this.from_color;
-            var period     = (typeof msg.payload.period     != "undefined") ? msg.payload.period     : this.period;
-            var cycles     = (typeof msg.payload.cycles     != "undefined") ? msg.payload.cycles     : this.cycles;
-            var persist    = (typeof msg.payload.persist    != "undefined") ? msg.payload.persist    : this.persist;
-            var power_on   = (typeof msg.payload.power_on   != "undefined") ? msg.payload.power_on   : this.power_on;
-            lifx.pulse(
-                selector,
-                {
-                    color: color,
-                    from_color: from_color,
-                    period: period,
-                    cycles: cycles,
-                    persist: persist,
-                    power_on: power_on,
-                    peak: 0.5
-                }, function(err, data) {
+            var settings   = {
+                color:      (typeof msg.payload.color      != "undefined") ? msg.payload.color      : this.color,
+                from_color: (typeof msg.payload.from_color != "undefined") ? msg.payload.from_color : this.from_color,
+                period:     (typeof msg.payload.period     != "undefined") ? msg.payload.period     : this.period,
+                cycles:     (typeof msg.payload.cycles     != "undefined") ? msg.payload.cycles     : this.cycles,
+                persist:    (typeof msg.payload.persist    != "undefined") ? msg.payload.persist    : this.persist,
+                power_on:   (typeof msg.payload.power_on   != "undefined") ? msg.payload.power_on   : this.power_on,
+                peak:       0.5
+            };
+            lifx.pulse(selector, settings, function(err, data) {
                     if (err) {
                         node.error(err);
                         return;
@@ -107,24 +100,16 @@ module.exports = function(RED) {
         var node = this;
         this.on('input', function(msg) {
             var selector   = (typeof msg.payload.selector   != "undefined") ? msg.payload.selector   : this.selector;
-            var color      = (typeof msg.payload.color      != "undefined") ? msg.payload.color      : this.color;
-            var from_color = (typeof msg.payload.from_color != "undefined") ? msg.payload.from_color : this.from_color;
-            var period     = (typeof msg.payload.period     != "undefined") ? msg.payload.period     : this.period;
-            var cycles     = (typeof msg.payload.cycles     != "undefined") ? msg.payload.cycles     : this.cycles;
-            var persist    = (typeof msg.payload.persist    != "undefined") ? msg.payload.persist    : this.persist;
-            var power_on   = (typeof msg.payload.power_on   != "undefined") ? msg.payload.power_on   : this.power_on;
-            var peak       = (typeof msg.payload.peak       != "undefined") ? msg.payload.peak       : this.peak;
-            lifx.breathe(
-                selector,
-                {
-                    color: color,
-                    from_color: from_color,
-                    period: period,
-                    cycles: cycles,
-                    persist: persist,
-                    power_on: power_on,
-                    peak: peak
-                }, function(err, data) {
+            var settings   = {
+                color:      (typeof msg.payload.color      != "undefined") ? msg.payload.color      : this.color,
+                from_color: (typeof msg.payload.from_color != "undefined") ? msg.payload.from_color : this.from_color,
+                period:     (typeof msg.payload.period     != "undefined") ? msg.payload.period     : this.period,
+                cycles:     (typeof msg.payload.cycles     != "undefined") ? msg.payload.cycles     : this.cycles,
+                persist:    (typeof msg.payload.persist    != "undefined") ? msg.payload.persist    : this.persist,
+                power_on:   (typeof msg.payload.power_on   != "undefined") ? msg.payload.power_on   : this.power_on,
+                peak:       (typeof msg.payload.peak       != "undefined") ? msg.payload.peak       : this.peak
+            };
+            lifx.breathe(selector, settings, function(err, data) {
                     if (err) {
                         node.error(err);
                         return;
