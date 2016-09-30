@@ -130,6 +130,22 @@ Sample input `msg.payload`:
         "selector": "label:Lamp"
     }
 
+### Breathe Effect
+Performs a breathe effect by slowly fading between the given colors.
+
+Sample input `msg.payload`:
+
+    {
+        "selector": "label:Lamp",
+        "color": "white",
+        "from_color": "red",
+        "period": 1,
+        "cycles": 5,
+        "persist": false,
+        "power_on": true,
+        "peak": 0.5
+    }
+
 ### Pulse Effect
 Performs a pulse effect by quickly flashing between the given colors.
 
@@ -145,20 +161,36 @@ Sample input `msg.payload`:
         "power_on": true
     }
 
-### Breathe Effect
-Performs a breathe effect by slowly fading between the given colors.
+### Cycle
+This node lets you easily have a set of lights transition to the next state in a list of states you supply without having to implement client side logic to calculate the next state in the sequence.
+
+The API scores each state hash against the current states of all the lights in the selector, and if the score is high enough to be considered a match, it will apply the next state in the list, looping back to the first one if necessary. If there's no close match, it will apply the closest state to the selector.
+
+The optional direction parameter determines the direction the API uses to determine the next state.
 
 Sample input `msg.payload`:
 
     {
-        "selector": "label:Lamp",
-        "color": "white",
-        "from_color": "red",
-        "period": 1,
-        "cycles": 5,
-        "persist": false,
-        "power_on": true,
-        "peak": 0.5
+      "selector": "label:Lamp",
+      "states": [
+        {
+          "brightness": 1.0
+        },
+        {
+          "brightness": 0.5
+        },
+        {
+          "brightness": 0.1
+        },
+        {
+          "power": "off"
+        }
+      ],
+      "defaults": {
+        "power": "on",
+        "saturation": 0,
+        "duration": 2.0
+      }
     }
 
 ## To Do

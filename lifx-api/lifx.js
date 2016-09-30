@@ -156,8 +156,8 @@ module.exports = function(RED) {
         var lifx = new lifxObj({bearerToken: this.api.token});
         var node = this;
         this.on('input', function(msg) {
-            var selector = (typeof msg.payload.selector != "undefined") ? msg.payload.selector : this.selector;
-            var settings   = {
+            var selector  = (typeof msg.payload.selector != "undefined") ? msg.payload.selector : this.selector;
+            var settings  = {
                 power:      (typeof msg.payload.power      != "undefined") ? msg.payload.power      : this.power,
                 color:      (typeof msg.payload.color      != "undefined") ? msg.payload.color      : this.color,
                 brightness: (typeof msg.payload.brightness != "undefined") ? msg.payload.brightness : this.brightness,
@@ -192,4 +192,26 @@ module.exports = function(RED) {
         });
     }
     RED.nodes.registerType("lifx-set-states",setStates);
+
+    function cycle(config) {
+        RED.nodes.createNode(this,config);
+
+        // Retrieve the config node
+        this.api        = RED.nodes.getNode(config.api);
+        this.selector   = config.selector;
+        
+        var lifx = new lifxObj({bearerToken: this.api.token});
+        var node = this;
+        this.on('input', function(msg) {
+            var selector = (typeof msg.payload.selector != "undefined") ? msg.payload.selector : this.selector;
+            var states   = msg.payload;
+            lifx.cycle(selector, states, function(err, data) {
+                    if (err) {
+                        node.error(err);
+                        return;
+                    }
+            });
+        });
+    }
+    RED.nodes.registerType("lifx-cycle",cycle);
 };
