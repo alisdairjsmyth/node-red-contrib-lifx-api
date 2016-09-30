@@ -172,4 +172,24 @@ module.exports = function(RED) {
         });
     }
     RED.nodes.registerType("lifx-set-state",setState);
+
+    function setStates(config) {
+        RED.nodes.createNode(this,config);
+
+        // Retrieve the config node
+        this.api        = RED.nodes.getNode(config.api);
+
+        var lifx = new lifxObj({bearerToken: this.api.token});
+        var node = this;
+        this.on('input', function(msg) {
+            var states = msg.payload;
+            lifx.setStates(states, function(err, data) {
+                    if (err) {
+                        node.error(err);
+                        return;
+                    }
+            });
+        });
+    }
+    RED.nodes.registerType("lifx-set-states",setStates);
 };

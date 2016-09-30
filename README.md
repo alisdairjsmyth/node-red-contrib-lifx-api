@@ -95,6 +95,32 @@ Sample input `msg.payload`:
         "duration": 5
     }
 
+
+### Set States
+This node allows you to set different states on multiple selectors in a single request.
+
+Each hash in `states` is comprised of a state hash as per Set State.
+
+You can optionally use the defaults hash to specify the base hash that each state hash is built from.
+
+Sample input `msg.payload`:
+
+    {
+        "states": [
+            {
+              "selector": "label:Lamp",
+              "power": "on"
+            },
+            {
+              "selector": "label:Casual Table",
+              "brightness": 0.5
+            }
+        ],
+            "defaults": {
+            "duration": 5.0 // all states will be applied over 5 seconds
+        }
+    }
+
 ### Toggle Power
 Turn off lights if any of them are on, or turn them on if they are all off. All lights matched by the selector will share the same power state after this action. Physically powered off lights are ignored.
 

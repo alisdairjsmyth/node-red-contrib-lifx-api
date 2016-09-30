@@ -121,49 +121,6 @@
 </script>
 
 <!--
-  Toggle Power Node
--->
-<script type="text/x-red" data-template-name="lifx-toggle-power">
-    <div class="form-row">
-        <label for="node-input-api"><i class="fa fa-key"></i> <span data-i18n="lifx-api.label.api"></span></label>
-        <input type="text" id="node-input-api">
-    </div>
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="lifx-api.label.name"></span></label>
-        <input type="text" id="node-input-name" data-i18n="[placeholder]lifx-api.placeholder.name">
-    </div>
-    <div class="form-row">
-        <label for="node-input-selector"><i class="fa fa-lightbulb-o"></i> <span data-i18n="lifx-api.label.selector"></span></label>
-        <input type="text" id="node-input-selector" data-i18n="[placeholder]lifx-api.placeholder.selector">
-    </div>
-</script>
-
-<script type="text/x-red" data-help-name="lifx-toggle-power">
-   <p>Turn off lights if any of them are on, or turn them on if they are all off. All lights matched by the selector will share the same power state after this action. Physically powered off lights are ignored.</p>
-   <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
-   <ul>
-       <li> <code>selector</code>: The selector to limit which lights are toggled.</li>
-   </ul>
-</script>
-
-<script type="text/javascript">
-    RED.nodes.registerType("lifx-toggle-power",{
-        category: "lifx",
-        defaults: {
-            "api" : {value:"",type:"lifx-config"},
-            "selector": {value:""}
-        },
-        inputs: 1,
-        outputs: 0,
-        icon: "light.png",
-        color: "#FFFFFF",
-        label: function() {
-            return this.name || "Toggle Power";
-        }
-    });
-</script>
-
-<!--
   Set State Node
 -->
 <script type="text/x-red" data-template-name="lifx-set-state">
@@ -226,6 +183,103 @@
         color: "#FFFFFF",
         label: function() {
             return this.name || "Set State";
+        }
+    });
+</script>
+
+<!--
+  Set States Node
+-->
+<script type="text/x-red" data-template-name="lifx-set-states">
+    <div class="form-row">
+        <label for="node-input-api"><i class="fa fa-key"></i> <span data-i18n="lifx-api.label.api"></span></label>
+        <input type="text" id="node-input-api">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="lifx-api.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]lifx-api.placeholder.name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="lifx-set-states">
+   <p>This node allows you to set different states on multiple selectors in a single request.</p>
+   <p>Each hash in states is comprised of a state hash as per Set State, except with the inclusion of selector.</p>
+   <p>You can optionally use the defaults hash to specify the base hash that each state hash is built from.</p>
+   <p>The node only receives its parameters in <code>msg.payload</code>:</p>
+   <ul>
+       <li> <code>states</code></li>
+       <ul>
+           <li> <code>selector</code>: The selector to limit which lights are toggled.</li>
+           <li> <code>power</code>: The power state you want to set on the selector. on or off</li>
+           <li> <code>color</code>: The color to set the light to.</li>
+           <li> <code>brightness</code>: The brightness level from 0.0 to 1.0. Overrides any brightness set in color (if any).</li>
+           <li> <code>duration</code>: How long in seconds you want the power action to take.</li>
+       </ul>
+       <li> <code>defaults</code></li>
+       <ul>
+           <li> <code>power</code>: The power state you want to set on all selectors. on or off</li>
+           <li> <code>color</code>: The color to set the light to.</li>
+           <li> <code>brightness</code>: The brightness level from 0.0 to 1.0. Overrides any brightness set in color (if any).</li>
+           <li> <code>duration</code>: How long in seconds you want the power action to take.</li>
+       </ul>
+   </ul>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType("lifx-set-states",{
+        category: "lifx",
+        defaults: {
+            "api" : {value:"",type:"lifx-config"}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "light.png",
+        color: "#FFFFFF",
+        label: function() {
+            return this.name || "Set States";
+        }
+    });
+</script>
+
+<!--
+  Toggle Power Node
+-->
+<script type="text/x-red" data-template-name="lifx-toggle-power">
+    <div class="form-row">
+        <label for="node-input-api"><i class="fa fa-key"></i> <span data-i18n="lifx-api.label.api"></span></label>
+        <input type="text" id="node-input-api">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="lifx-api.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]lifx-api.placeholder.name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-selector"><i class="fa fa-lightbulb-o"></i> <span data-i18n="lifx-api.label.selector"></span></label>
+        <input type="text" id="node-input-selector" data-i18n="[placeholder]lifx-api.placeholder.selector">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="lifx-toggle-power">
+   <p>Turn off lights if any of them are on, or turn them on if they are all off. All lights matched by the selector will share the same power state after this action. Physically powered off lights are ignored.</p>
+   <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
+   <ul>
+       <li> <code>selector</code>: The selector to limit which lights are toggled.</li>
+   </ul>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType("lifx-toggle-power",{
+        category: "lifx",
+        defaults: {
+            "api" : {value:"",type:"lifx-config"},
+            "selector": {value:""}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "light.png",
+        color: "#FFFFFF",
+        label: function() {
+            return this.name || "Toggle Power";
         }
     });
 </script>
