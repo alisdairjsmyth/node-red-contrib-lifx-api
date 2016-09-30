@@ -82,6 +82,19 @@ Sample output `msg.payload`:
       }
     ]
 
+### Set State
+Sets the state of the lights within the selector. All parameters (except for the selector) are optional. If you don't supply a parameter, the node will leave that value untouched.
+
+Sample input `msg.payload`:
+
+    {
+        "selector": "label:Lamp",
+        "power": "on",
+        "color": "blue saturation:0.5",
+        "brightness": 0.5,
+        "duration": 5
+    }
+
 ### Toggle Power
 Turn off lights if any of them are on, or turn them on if they are all off. All lights matched by the selector will share the same power state after this action. Physically powered off lights are ignored.
 

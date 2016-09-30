@@ -164,6 +164,73 @@
 </script>
 
 <!--
+  Set State Node
+-->
+<script type="text/x-red" data-template-name="lifx-set-state">
+    <div class="form-row">
+        <label for="node-input-api"><i class="fa fa-key"></i> <span data-i18n="lifx-api.label.api"></span></label>
+        <input type="text" id="node-input-api">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="lifx-api.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]lifx-api.placeholder.name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-selector"><i class="fa fa-lightbulb-o"></i> <span data-i18n="lifx-api.label.selector"></span></label>
+        <input type="text" id="node-input-selector" data-i18n="[placeholder]lifx-api.placeholder.selector">
+    </div>
+    <div class="form-row">
+        <label for="node-input-power"></i> <span data-i18n="lifx-api.label.power"></span></label>
+        <input type="text" id="node-input-power" data-i18n="[placeholder]lifx-api.placeholder.power">
+    </div>
+    <div class="form-row">
+        <label for="node-input-color"></i> <span data-i18n="lifx-api.label.color"></span></label>
+        <input type="text" id="node-input-color" data-i18n="[placeholder]lifx-api.placeholder.color">
+    </div>
+    <div class="form-row">
+        <label for="node-input-brightness"></i> <span data-i18n="lifx-api.label.brightness"></span></label>
+        <input type="text" id="node-input-brightness" data-i18n="[placeholder]lifx-api.placeholder.brightness">
+    </div>
+    <div class="form-row">
+        <label for="node-input-duration"></i> <span data-i18n="lifx-api.label.duration"></span></label>
+        <input type="text" id="node-input-duration" data-i18n="[placeholder]lifx-api.placeholder.duration">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="lifx-set-state">
+   <p>Sets the state of the lights within the selector. All parameters (except for the selector) are optional. If you do not supply a parameter, the node will leave that value untouched.</p>
+   <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
+   <ul>
+       <li> <code>selector</code>: The selector to limit which lights are toggled.</li>
+       <li> <code>power</code>: The power state you want to set on the selector. on or off</li>
+       <li> <code>color</code>: The color to set the light to.</li>
+       <li> <code>brightness</code>: The brightness level from 0.0 to 1.0. Overrides any brightness set in color (if any).</li>
+       <li> <code>duration</code>: How long in seconds you want the power action to take.</li>
+   </ul>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType("lifx-set-state",{
+        category: "lifx",
+        defaults: {
+            "api" : {value:"",type:"lifx-config"},
+            "selector": {value:""},
+            "power": {value:""},
+            "color": {value:""},
+            "brightness": {value:""},
+            "duration": {value:""}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "light.png",
+        color: "#FFFFFF",
+        label: function() {
+            return this.name || "Set State";
+        }
+    });
+</script>
+
+<!--
   Pulse Effect Node
 -->
 <script type="text/x-red" data-template-name="lifx-pulse-effect">

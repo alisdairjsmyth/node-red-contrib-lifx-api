@@ -141,4 +141,35 @@ module.exports = function(RED) {
         });
     }
     RED.nodes.registerType("lifx-list-lights",listLights);
+
+    function setState(config) {
+        RED.nodes.createNode(this,config);
+        this.selector = config.selector;
+
+        // Retrieve the config node
+        this.api        = RED.nodes.getNode(config.api);
+        this.power      = config.power;
+        this.color      = config.color;
+        this.brightness = config.brightness;
+        this.duration   = config.duration;
+
+        var lifx = new lifxObj({bearerToken: this.api.token});
+        var node = this;
+        this.on('input', function(msg) {
+            var selector = (typeof msg.payload.selector != "undefined") ? msg.payload.selector : this.selector;
+            var settings   = {
+                power:      (typeof msg.payload.power      != "undefined") ? msg.payload.power      : this.power,
+                color:      (typeof msg.payload.color      != "undefined") ? msg.payload.color      : this.color,
+                brightness: (typeof msg.payload.brightness != "undefined") ? msg.payload.brightness : this.brightness,
+                duration:   (typeof msg.payload.duration   != "undefined") ? msg.payload.duration   : this.duration
+            };
+            lifx.setState(selector, settings, function(err, data) {
+                    if (err) {
+                        node.error(err);
+                        return;
+                    }
+            });
+        });
+    }
+    RED.nodes.registerType("lifx-set-state",setState);
 };
