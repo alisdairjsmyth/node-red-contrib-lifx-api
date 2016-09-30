@@ -1,4 +1,5 @@
 # node-red-contrib-lifx-api
+[![npm version](https://badge.fury.io/js/node-red-contrib-lifx-api.svg)](https://badge.fury.io/js/node-red-contrib-lifx-api)
 
 A collection of [Node-RED](http://nodered.org/) nodes to control [LIFX](http://www.lifx.com/) globes using the HTTP Remote Control API.
 
@@ -192,7 +193,3 @@ Sample input `msg.payload`:
         "duration": 2.0
       }
     }
-
-## To Do
-The intent is for this collection of nodes to expose the full capability of the
-LIFX HTTP Remote Control API.
