@@ -22,6 +22,6 @@
     "email": "alisdair.smyth@gmail.com"
   },
   "dependencies": {
-    "lifx-http-api": "1.0.1"
+    "lifx-http-api": "^1.0.3"
   }
 }
