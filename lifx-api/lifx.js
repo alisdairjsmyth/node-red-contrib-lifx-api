@@ -35,6 +35,7 @@ module.exports = function(RED) {
         var lifx = new lifxObj({bearerToken: this.api.token});
         var node = this;
         this.on('input', function(msg) {
+            msg.payload  = (typeof msg.payload          != "undefined") ? msg.payload          : {};
             var selector = (typeof msg.payload.selector != "undefined") ? msg.payload.selector : this.selector;
             lifx.togglePower(selector, 0, function (err, data) {
                 if (err) {
@@ -62,7 +63,8 @@ module.exports = function(RED) {
         var lifx = new lifxObj({bearerToken: this.api.token});
         var node = this;
         this.on('input', function(msg) {
-            var selector   = (typeof msg.payload.selector   != "undefined") ? msg.payload.selector   : this.selector;
+            msg.payload    = (typeof msg.payload           != "undefined") ? msg.payload            : {};
+            var selector   = (typeof msg.payload.selector  != "undefined") ? msg.payload.selector   : this.selector;
             var settings   = {
                 color:      (typeof msg.payload.color      != "undefined") ? msg.payload.color      : this.color,
                 from_color: (typeof msg.payload.from_color != "undefined") ? msg.payload.from_color : this.from_color,
@@ -99,7 +101,8 @@ module.exports = function(RED) {
         var lifx = new lifxObj({bearerToken: this.api.token});
         var node = this;
         this.on('input', function(msg) {
-            var selector   = (typeof msg.payload.selector   != "undefined") ? msg.payload.selector   : this.selector;
+            msg.payload    = (typeof msg.payload           != "undefined") ? msg.payload            : {};
+            var selector   = (typeof msg.payload.selector  != "undefined") ? msg.payload.selector   : this.selector;
             var settings   = {
                 color:      (typeof msg.payload.color      != "undefined") ? msg.payload.color      : this.color,
                 from_color: (typeof msg.payload.from_color != "undefined") ? msg.payload.from_color : this.from_color,
@@ -129,6 +132,7 @@ module.exports = function(RED) {
         var lifx = new lifxObj({bearerToken: this.api.token});
         var node = this;
         this.on('input', function(msg) {
+            msg.payload    = (typeof msg.payload            != "undefined") ? msg.payload            : {};
             var selector   = (typeof msg.payload.selector   != "undefined") ? msg.payload.selector   : this.selector;
             lifx.listLights(selector, function(err, data) {
                 if (err) {
@@ -156,7 +160,8 @@ module.exports = function(RED) {
         var lifx = new lifxObj({bearerToken: this.api.token});
         var node = this;
         this.on('input', function(msg) {
-            var selector  = (typeof msg.payload.selector != "undefined") ? msg.payload.selector : this.selector;
+            msg.payload   = (typeof msg.payload            != "undefined") ? msg.payload            : {};
+            var selector  = (typeof msg.payload.selector   != "undefined") ? msg.payload.selector   : this.selector;
             var settings  = {
                 power:      (typeof msg.payload.power      != "undefined") ? msg.payload.power      : this.power,
                 color:      (typeof msg.payload.color      != "undefined") ? msg.payload.color      : this.color,
@@ -182,7 +187,8 @@ module.exports = function(RED) {
         var lifx = new lifxObj({bearerToken: this.api.token});
         var node = this;
         this.on('input', function(msg) {
-            var states = msg.payload;
+            msg.payload = (typeof msg.payload != "undefined") ? msg.payload : {};
+            var states  = msg.payload;
             lifx.setStates(states, function(err, data) {
                     if (err) {
                         node.error(err);
@@ -199,10 +205,11 @@ module.exports = function(RED) {
         // Retrieve the config node
         this.api        = RED.nodes.getNode(config.api);
         this.selector   = config.selector;
-        
+
         var lifx = new lifxObj({bearerToken: this.api.token});
         var node = this;
         this.on('input', function(msg) {
+            msg.payload  = (typeof msg.payload          != "undefined") ? msg.payload          : {};
             var selector = (typeof msg.payload.selector != "undefined") ? msg.payload.selector : this.selector;
             var states   = msg.payload;
             lifx.cycle(selector, states, function(err, data) {
