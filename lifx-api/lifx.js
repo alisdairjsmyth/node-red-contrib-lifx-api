@@ -25,6 +25,10 @@ module.exports = function(RED) {
     }
     RED.nodes.registerType("lifx-config",lifxConfig);
 
+    function defaultTo(val, def) {
+      return ((typeof val != "undefined") ? val : def);
+    }
+
     function togglePower(config) {
         RED.nodes.createNode(this,config);
         this.selector = config.selector;
@@ -35,8 +39,8 @@ module.exports = function(RED) {
         var lifx = new lifxObj({bearerToken: this.api.token});
         var node = this;
         this.on('input', function(msg) {
-            msg.payload  = (typeof msg.payload          != "undefined") ? msg.payload          : {};
-            var selector = (typeof msg.payload.selector != "undefined") ? msg.payload.selector : this.selector;
+            msg.payload  = defaultTo(msg.payload, {});
+            var selector = defaultTo(msg.payload.selector, this.selector);
             lifx.togglePower(selector, 0, function (err, data) {
                 if (err) {
                     node.error(err);
@@ -63,15 +67,15 @@ module.exports = function(RED) {
         var lifx = new lifxObj({bearerToken: this.api.token});
         var node = this;
         this.on('input', function(msg) {
-            msg.payload    = (typeof msg.payload           != "undefined") ? msg.payload            : {};
-            var selector   = (typeof msg.payload.selector  != "undefined") ? msg.payload.selector   : this.selector;
+            msg.payload    = defaultTo(msg.payload, {});
+            var selector   = defaultTo(msg.payload.selector, this.selector);
             var settings   = {
-                color:      (typeof msg.payload.color      != "undefined") ? msg.payload.color      : this.color,
-                from_color: (typeof msg.payload.from_color != "undefined") ? msg.payload.from_color : this.from_color,
-                period:     (typeof msg.payload.period     != "undefined") ? msg.payload.period     : this.period,
-                cycles:     (typeof msg.payload.cycles     != "undefined") ? msg.payload.cycles     : this.cycles,
-                persist:    (typeof msg.payload.persist    != "undefined") ? msg.payload.persist    : this.persist,
-                power_on:   (typeof msg.payload.power_on   != "undefined") ? msg.payload.power_on   : this.power_on,
+                color:      defaultTo(msg.payload.color, this.color),
+                from_color: defaultTo(msg.payload.from_color, this.from_color),
+                period:     defaultTo(msg.payload.period, this.period),
+                cycles:     defaultTo(msg.payload.cycles, this.cycles),
+                persist:    defaultTo(msg.payload.persist, this.persist),
+                power_on:   defaultTo(msg.payload.power_on, this.power_on),
                 peak:       0.5
             };
             lifx.pulse(selector, settings, function(err, data) {
@@ -101,16 +105,16 @@ module.exports = function(RED) {
         var lifx = new lifxObj({bearerToken: this.api.token});
         var node = this;
         this.on('input', function(msg) {
-            msg.payload    = (typeof msg.payload           != "undefined") ? msg.payload            : {};
-            var selector   = (typeof msg.payload.selector  != "undefined") ? msg.payload.selector   : this.selector;
+            msg.payload    = defaultTo(msg.payload, {});
+            var selector   = defaultTo(msg.payload.selector, this.selector);
             var settings   = {
-                color:      (typeof msg.payload.color      != "undefined") ? msg.payload.color      : this.color,
-                from_color: (typeof msg.payload.from_color != "undefined") ? msg.payload.from_color : this.from_color,
-                period:     (typeof msg.payload.period     != "undefined") ? msg.payload.period     : this.period,
-                cycles:     (typeof msg.payload.cycles     != "undefined") ? msg.payload.cycles     : this.cycles,
-                persist:    (typeof msg.payload.persist    != "undefined") ? msg.payload.persist    : this.persist,
-                power_on:   (typeof msg.payload.power_on   != "undefined") ? msg.payload.power_on   : this.power_on,
-                peak:       (typeof msg.payload.peak       != "undefined") ? msg.payload.peak       : this.peak
+                color:      defaultTo(msg.payload.color, this.color),
+                from_color: defaultTo(msg.payload.from_color, this.from_color),
+                period:     defaultTo(msg.payload.period, this.period),
+                cycles:     defaultTo(msg.payload.cycles, this.cycles),
+                persist:    defaultTo(msg.payload.persist, this.persist),
+                power_on:   defaultTo(msg.payload.power_on, this.power_on),
+                peak:       defaultTo(msg.payload.peak, this.peak)
             };
             lifx.breathe(selector, settings, function(err, data) {
                     if (err) {
@@ -132,8 +136,8 @@ module.exports = function(RED) {
         var lifx = new lifxObj({bearerToken: this.api.token});
         var node = this;
         this.on('input', function(msg) {
-            msg.payload    = (typeof msg.payload            != "undefined") ? msg.payload            : {};
-            var selector   = (typeof msg.payload.selector   != "undefined") ? msg.payload.selector   : this.selector;
+            msg.payload    = defaultTo(msg.payload, {});
+            var selector   = defaultTo(msg.payload.selector, this.selector);
             lifx.listLights(selector, function(err, data) {
                 if (err) {
                     node.error(err);
@@ -160,13 +164,13 @@ module.exports = function(RED) {
         var lifx = new lifxObj({bearerToken: this.api.token});
         var node = this;
         this.on('input', function(msg) {
-            msg.payload   = (typeof msg.payload            != "undefined") ? msg.payload            : {};
-            var selector  = (typeof msg.payload.selector   != "undefined") ? msg.payload.selector   : this.selector;
+            msg.payload   = defaultTo(msg.payload, {});
+            var selector  = defaultTo(msg.payload.selector, this.selector);
             var settings  = {
-                power:      (typeof msg.payload.power      != "undefined") ? msg.payload.power      : this.power,
-                color:      (typeof msg.payload.color      != "undefined") ? msg.payload.color      : this.color,
-                brightness: (typeof msg.payload.brightness != "undefined") ? msg.payload.brightness : this.brightness,
-                duration:   (typeof msg.payload.duration   != "undefined") ? msg.payload.duration   : this.duration
+                power:      defaultTo(msg.payload.power, this.power),
+                color:      defaultTo(msg.payload.color, this.color),
+                brightness: defaultTo(msg.payload.brightness, this.brightness),
+                duration:   defaultTo(msg.payload.duration, this.duration)
             };
             lifx.setState(selector, settings, function(err, data) {
                     if (err) {
@@ -187,8 +191,7 @@ module.exports = function(RED) {
         var lifx = new lifxObj({bearerToken: this.api.token});
         var node = this;
         this.on('input', function(msg) {
-            msg.payload = (typeof msg.payload != "undefined") ? msg.payload : {};
-            var states  = msg.payload;
+            var states  = defaultTo(msg.payload, {});
             lifx.setStates(states, function(err, data) {
                     if (err) {
                         node.error(err);
@@ -209,8 +212,8 @@ module.exports = function(RED) {
         var lifx = new lifxObj({bearerToken: this.api.token});
         var node = this;
         this.on('input', function(msg) {
-            msg.payload  = (typeof msg.payload          != "undefined") ? msg.payload          : {};
-            var selector = (typeof msg.payload.selector != "undefined") ? msg.payload.selector : this.selector;
+            msg.payload  = defaultTo(msg.payload, {});
+            var selector = defaultTo(msg.payload.selector, this.selector);
             var states   = msg.payload;
             lifx.cycle(selector, states, function(err, data) {
                     if (err) {
