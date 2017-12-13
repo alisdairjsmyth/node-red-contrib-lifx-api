@@ -14,214 +14,213 @@
  * limitations under the License.
  **/
 module.exports = function(RED) {
-    "use strict";
-    var lifxObj = require('lifx-http-api');
+  "use strict";
+  var lifxObj = require("lifx-http-api");
 
-    function lifxConfig(n) {
-        RED.nodes.createNode(this,n);
-        this.name  = n.name;
-        this.token = n.token;
+  function lifxConfig(n) {
+    RED.nodes.createNode(this, n);
+    this.name = n.name;
+    this.token = n.token;
+  }
+  RED.nodes.registerType("lifx-config", lifxConfig);
 
-    }
-    RED.nodes.registerType("lifx-config",lifxConfig);
+  function defaultTo(val, def) {
+    return typeof val != "undefined" ? val : def;
+  }
 
-    function defaultTo(val, def) {
-      return ((typeof val != "undefined") ? val : def);
-    }
+  function togglePower(config) {
+    RED.nodes.createNode(this, config);
+    this.selector = config.selector;
 
-    function togglePower(config) {
-        RED.nodes.createNode(this,config);
-        this.selector = config.selector;
+    // Retrieve the config node
+    this.api = RED.nodes.getNode(config.api);
 
-        // Retrieve the config node
-        this.api = RED.nodes.getNode(config.api);
+    var lifx = new lifxObj({ bearerToken: this.api.token });
+    var node = this;
+    this.on("input", function(msg) {
+      msg.payload = defaultTo(msg.payload, {});
+      var selector = defaultTo(msg.payload.selector, this.selector);
+      lifx.togglePower(selector, 0, function(err, data) {
+        if (err) {
+          node.error(err);
+          return;
+        }
+      });
+    });
+  }
+  RED.nodes.registerType("lifx-toggle-power", togglePower);
 
-        var lifx = new lifxObj({bearerToken: this.api.token});
-        var node = this;
-        this.on('input', function(msg) {
-            msg.payload  = defaultTo(msg.payload, {});
-            var selector = defaultTo(msg.payload.selector, this.selector);
-            lifx.togglePower(selector, 0, function (err, data) {
-                if (err) {
-                    node.error(err);
-                    return;
-                }
-            });
-        });
-    }
-    RED.nodes.registerType("lifx-toggle-power",togglePower);
+  function pulseEffect(config) {
+    RED.nodes.createNode(this, config);
+    this.selector = config.selector;
+    this.color = config.color;
+    this.from_color = config.from_color;
+    this.period = config.period;
+    this.cycles = config.cycles;
+    this.persist = config.persist;
+    this.power_on = config.power_on;
 
-    function pulseEffect(config) {
-        RED.nodes.createNode(this,config);
-        this.selector   = config.selector;
-        this.color      = config.color;
-        this.from_color = config.from_color;
-        this.period     = config.period;
-        this.cycles     = config.cycles;
-        this.persist    = config.persist;
-        this.power_on   = config.power_on;
+    // Retrieve the config node
+    this.api = RED.nodes.getNode(config.api);
 
-        // Retrieve the config node
-        this.api = RED.nodes.getNode(config.api);
+    var lifx = new lifxObj({ bearerToken: this.api.token });
+    var node = this;
+    this.on("input", function(msg) {
+      msg.payload = defaultTo(msg.payload, {});
+      var selector = defaultTo(msg.payload.selector, this.selector);
+      var settings = {
+        color: defaultTo(msg.payload.color, this.color),
+        from_color: defaultTo(msg.payload.from_color, this.from_color),
+        period: defaultTo(msg.payload.period, this.period),
+        cycles: defaultTo(msg.payload.cycles, this.cycles),
+        persist: defaultTo(msg.payload.persist, this.persist),
+        power_on: defaultTo(msg.payload.power_on, this.power_on),
+        peak: 0.5
+      };
+      lifx.pulse(selector, settings, function(err, data) {
+        if (err) {
+          node.error(err);
+          return;
+        }
+      });
+    });
+  }
+  RED.nodes.registerType("lifx-pulse-effect", pulseEffect);
 
-        var lifx = new lifxObj({bearerToken: this.api.token});
-        var node = this;
-        this.on('input', function(msg) {
-            msg.payload    = defaultTo(msg.payload, {});
-            var selector   = defaultTo(msg.payload.selector, this.selector);
-            var settings   = {
-                color:      defaultTo(msg.payload.color, this.color),
-                from_color: defaultTo(msg.payload.from_color, this.from_color),
-                period:     defaultTo(msg.payload.period, this.period),
-                cycles:     defaultTo(msg.payload.cycles, this.cycles),
-                persist:    defaultTo(msg.payload.persist, this.persist),
-                power_on:   defaultTo(msg.payload.power_on, this.power_on),
-                peak:       0.5
-            };
-            lifx.pulse(selector, settings, function(err, data) {
-                    if (err) {
-                        node.error(err);
-                        return;
-                    }
-            });
-        });
-    }
-    RED.nodes.registerType("lifx-pulse-effect",pulseEffect);
+  function breatheEffect(config) {
+    RED.nodes.createNode(this, config);
+    this.selector = config.selector;
+    this.color = config.color;
+    this.from_color = config.from_color;
+    this.period = config.period;
+    this.cycles = config.cycles;
+    this.persist = config.persist;
+    this.power_on = config.power_on;
+    this.peak = config.peak;
 
-    function breatheEffect(config) {
-        RED.nodes.createNode(this,config);
-        this.selector   = config.selector;
-        this.color      = config.color;
-        this.from_color = config.from_color;
-        this.period     = config.period;
-        this.cycles     = config.cycles;
-        this.persist    = config.persist;
-        this.power_on   = config.power_on;
-        this.peak       = config.peak;
+    // Retrieve the config node
+    this.api = RED.nodes.getNode(config.api);
 
-        // Retrieve the config node
-        this.api = RED.nodes.getNode(config.api);
+    var lifx = new lifxObj({ bearerToken: this.api.token });
+    var node = this;
+    this.on("input", function(msg) {
+      msg.payload = defaultTo(msg.payload, {});
+      var selector = defaultTo(msg.payload.selector, this.selector);
+      var settings = {
+        color: defaultTo(msg.payload.color, this.color),
+        from_color: defaultTo(msg.payload.from_color, this.from_color),
+        period: defaultTo(msg.payload.period, this.period),
+        cycles: defaultTo(msg.payload.cycles, this.cycles),
+        persist: defaultTo(msg.payload.persist, this.persist),
+        power_on: defaultTo(msg.payload.power_on, this.power_on),
+        peak: defaultTo(msg.payload.peak, this.peak)
+      };
+      lifx.breathe(selector, settings, function(err, data) {
+        if (err) {
+          node.error(err);
+          return;
+        }
+      });
+    });
+  }
+  RED.nodes.registerType("lifx-breathe-effect", breatheEffect);
 
-        var lifx = new lifxObj({bearerToken: this.api.token});
-        var node = this;
-        this.on('input', function(msg) {
-            msg.payload    = defaultTo(msg.payload, {});
-            var selector   = defaultTo(msg.payload.selector, this.selector);
-            var settings   = {
-                color:      defaultTo(msg.payload.color, this.color),
-                from_color: defaultTo(msg.payload.from_color, this.from_color),
-                period:     defaultTo(msg.payload.period, this.period),
-                cycles:     defaultTo(msg.payload.cycles, this.cycles),
-                persist:    defaultTo(msg.payload.persist, this.persist),
-                power_on:   defaultTo(msg.payload.power_on, this.power_on),
-                peak:       defaultTo(msg.payload.peak, this.peak)
-            };
-            lifx.breathe(selector, settings, function(err, data) {
-                    if (err) {
-                        node.error(err);
-                        return;
-                    }
-            });
-        });
-    }
-    RED.nodes.registerType("lifx-breathe-effect",breatheEffect);
+  function listLights(config) {
+    RED.nodes.createNode(this, config);
+    this.selector = config.selector;
 
-    function listLights(config) {
-        RED.nodes.createNode(this,config);
-        this.selector   = config.selector;
+    // Retrieve the config node
+    this.api = RED.nodes.getNode(config.api);
 
-        // Retrieve the config node
-        this.api = RED.nodes.getNode(config.api);
+    var lifx = new lifxObj({ bearerToken: this.api.token });
+    var node = this;
+    this.on("input", function(msg) {
+      msg.payload = defaultTo(msg.payload, {});
+      var selector = defaultTo(msg.payload.selector, this.selector);
+      lifx.listLights(selector, function(err, data) {
+        if (err) {
+          node.error(err);
+          return;
+        }
+        msg.payload = data;
+        node.send(msg);
+      });
+    });
+  }
+  RED.nodes.registerType("lifx-list-lights", listLights);
 
-        var lifx = new lifxObj({bearerToken: this.api.token});
-        var node = this;
-        this.on('input', function(msg) {
-            msg.payload    = defaultTo(msg.payload, {});
-            var selector   = defaultTo(msg.payload.selector, this.selector);
-            lifx.listLights(selector, function(err, data) {
-                if (err) {
-                    node.error(err);
-                    return;
-                }
-                msg.payload = data;
-                node.send(msg);
-            });
-        });
-    }
-    RED.nodes.registerType("lifx-list-lights",listLights);
+  function setState(config) {
+    RED.nodes.createNode(this, config);
+    this.selector = config.selector;
 
-    function setState(config) {
-        RED.nodes.createNode(this,config);
-        this.selector = config.selector;
+    // Retrieve the config node
+    this.api = RED.nodes.getNode(config.api);
+    this.power = config.power;
+    this.color = config.color;
+    this.brightness = config.brightness;
+    this.duration = config.duration;
 
-        // Retrieve the config node
-        this.api        = RED.nodes.getNode(config.api);
-        this.power      = config.power;
-        this.color      = config.color;
-        this.brightness = config.brightness;
-        this.duration   = config.duration;
+    var lifx = new lifxObj({ bearerToken: this.api.token });
+    var node = this;
+    this.on("input", function(msg) {
+      msg.payload = defaultTo(msg.payload, {});
+      var selector = defaultTo(msg.payload.selector, this.selector);
+      var settings = {
+        power: defaultTo(msg.payload.power, this.power),
+        color: defaultTo(msg.payload.color, this.color),
+        brightness: defaultTo(msg.payload.brightness, this.brightness),
+        duration: defaultTo(msg.payload.duration, this.duration)
+      };
+      lifx.setState(selector, settings, function(err, data) {
+        if (err) {
+          node.error(err);
+          return;
+        }
+      });
+    });
+  }
+  RED.nodes.registerType("lifx-set-state", setState);
 
-        var lifx = new lifxObj({bearerToken: this.api.token});
-        var node = this;
-        this.on('input', function(msg) {
-            msg.payload   = defaultTo(msg.payload, {});
-            var selector  = defaultTo(msg.payload.selector, this.selector);
-            var settings  = {
-                power:      defaultTo(msg.payload.power, this.power),
-                color:      defaultTo(msg.payload.color, this.color),
-                brightness: defaultTo(msg.payload.brightness, this.brightness),
-                duration:   defaultTo(msg.payload.duration, this.duration)
-            };
-            lifx.setState(selector, settings, function(err, data) {
-                    if (err) {
-                        node.error(err);
-                        return;
-                    }
-            });
-        });
-    }
-    RED.nodes.registerType("lifx-set-state",setState);
+  function setStates(config) {
+    RED.nodes.createNode(this, config);
 
-    function setStates(config) {
-        RED.nodes.createNode(this,config);
+    // Retrieve the config node
+    this.api = RED.nodes.getNode(config.api);
 
-        // Retrieve the config node
-        this.api        = RED.nodes.getNode(config.api);
+    var lifx = new lifxObj({ bearerToken: this.api.token });
+    var node = this;
+    this.on("input", function(msg) {
+      var states = defaultTo(msg.payload, {});
+      lifx.setStates(states, function(err, data) {
+        if (err) {
+          node.error(err);
+          return;
+        }
+      });
+    });
+  }
+  RED.nodes.registerType("lifx-set-states", setStates);
 
-        var lifx = new lifxObj({bearerToken: this.api.token});
-        var node = this;
-        this.on('input', function(msg) {
-            var states  = defaultTo(msg.payload, {});
-            lifx.setStates(states, function(err, data) {
-                    if (err) {
-                        node.error(err);
-                        return;
-                    }
-            });
-        });
-    }
-    RED.nodes.registerType("lifx-set-states",setStates);
+  function cycle(config) {
+    RED.nodes.createNode(this, config);
 
-    function cycle(config) {
-        RED.nodes.createNode(this,config);
+    // Retrieve the config node
+    this.api = RED.nodes.getNode(config.api);
+    this.selector = config.selector;
 
-        // Retrieve the config node
-        this.api        = RED.nodes.getNode(config.api);
-        this.selector   = config.selector;
-
-        var lifx = new lifxObj({bearerToken: this.api.token});
-        var node = this;
-        this.on('input', function(msg) {
-            msg.payload  = defaultTo(msg.payload, {});
-            var selector = defaultTo(msg.payload.selector, this.selector);
-            var states   = msg.payload;
-            lifx.cycle(selector, states, function(err, data) {
-                    if (err) {
-                        node.error(err);
-                        return;
-                    }
-            });
-        });
-    }
-    RED.nodes.registerType("lifx-cycle",cycle);
+    var lifx = new lifxObj({ bearerToken: this.api.token });
+    var node = this;
+    this.on("input", function(msg) {
+      msg.payload = defaultTo(msg.payload, {});
+      var selector = defaultTo(msg.payload.selector, this.selector);
+      var states = msg.payload;
+      lifx.cycle(selector, states, function(err, data) {
+        if (err) {
+          node.error(err);
+          return;
+        }
+      });
+    });
+  }
+  RED.nodes.registerType("lifx-cycle", cycle);
 };
