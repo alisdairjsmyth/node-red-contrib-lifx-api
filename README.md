@@ -117,7 +117,7 @@ Sample input `msg.payload`:
               "brightness": 0.5
             }
         ],
-            "defaults": {
+        "defaults": {
             "duration": 5.0 // all states will be applied over 5 seconds
         }
     }
