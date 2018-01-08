@@ -25,7 +25,7 @@ module.exports = function(RED) {
   RED.nodes.registerType("lifx-config", lifxConfig);
 
   function defaultTo(val, def) {
-    return typeof val != "undefined" ? val : def;
+    return typeof val != "undefined" ? val : ((def != "") ? def : null);
   }
 
   function togglePower(config) {
