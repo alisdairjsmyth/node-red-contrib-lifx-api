@@ -22,6 +22,7 @@
       "selector": "Selector string",
       "color": "The color to use",
       "from_color": "The color to start the effect from",
+      "validate_color": "The color string to validate",
       "period": "The time in seconds for one cyles of the effect",
       "cycles": "The number of times to repeat the effect",
       "persist":

@@ -646,3 +646,54 @@ RED.nodes.registerType("lifx-activate-scene", {
   }
 });
 </script>
+
+<!--
+  Validate Color Node
+-->
+<script type="text/x-red" data-template-name="lifx-validate-color">
+    <div class="form-row">
+        <label for="node-input-api"><i class="fa fa-key"></i> <span data-i18n="lifx-api.label.api"></span></label>
+        <input type="text" id="node-input-api">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="lifx-api.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]lifx-api.placeholder.name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-color"></i> <span data-i18n="lifx-api.label.color"></span></label>
+        <input type="text" id="node-input-color" data-i18n="[placeholder]lifx-api.placeholder.validate_color">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="lifx-validate-color">
+    <p>This endpoint lets you validate a users color string and return the hue, saturation, brightness and kelvin values that the API will interpret as.</p>
+    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
+    <ul>
+        <li> <code>color</code>: Color string to validate.</li>
+    </ul>
+    <p>If the color is valid, the node emits <code>msg.payload</code> containing a color object.</li>
+    <ul>
+        <li> <code>hue</code></li>
+        <li> <code>saturation</code></li>
+        <li> <code>brightness</code></li>
+        <li> <code>kelvin</code><li>
+    </ul>
+</script>
+
+<script type="text/javascript">
+RED.nodes.registerType("lifx-validate-color", {
+  category: "lifx",
+  defaults: {
+    name: { value: "" },
+    api: { value: "", type: "lifx-config" },
+    color: { value: "" }
+  },
+  inputs: 1,
+  outputs: 1,
+  icon: "light.png",
+  color: "#FFFFFF",
+  label: function() {
+    return this.name || "Validate Color";
+  }
+});
+</script>

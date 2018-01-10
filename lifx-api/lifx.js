@@ -272,4 +272,28 @@ module.exports = function(RED) {
     });
   }
   RED.nodes.registerType("lifx-activate-scene", activateScene);
+
+  function validateColor(config) {
+    RED.nodes.createNode(this, config);
+
+    // Retrieve the config node
+    this.api = RED.nodes.getNode(config.api);
+    this.color = config.color;
+
+    var lifx = new lifxObj({ bearerToken: this.api.token });
+    var node = this;
+    this.on("input", function(msg) {
+      msg.payload = defaultTo(msg.payload, {});
+      var color = defaultTo(msg.payload.color, this.color);
+      lifx.validateColor(color, function(err, data) {
+        if (err) {
+          node.error(err);
+          return;
+        }
+        msg.payload = data;
+        node.send(msg);
+      });
+    });
+  }
+  RED.nodes.registerType("lifx-validate-color", validateColor);
 };
