@@ -153,6 +153,10 @@ RED.nodes.registerType("lifx-list-lights", {
         <label for="node-input-duration"></i> <span data-i18n="lifx-api.label.duration"></span></label>
         <input type="text" id="node-input-duration" data-i18n="[placeholder]lifx-api.placeholder.duration">
     </div>
+    <div class="form-row">
+        <label for="node-input-infrared"></i> <span data-i18n="lifx-api.label.infrared"></span></label>
+        <input type="text" id="node-input-infrared" data-i18n="[placeholder]lifx-api.placeholder.infrared">
+    </div>
 </script>
 
 <script type="text/x-red" data-help-name="lifx-set-state">
@@ -164,6 +168,7 @@ RED.nodes.registerType("lifx-list-lights", {
         <li> <code>color</code>: The color to set the light to.</li>
         <li> <code>brightness</code>: The brightness level from 0.0 to 1.0. Overrides any brightness set in color (if any).</li>
         <li> <code>duration</code>: How long in seconds you want the power action to take.</li>
+        <li> <code>infrared</code>: The maximum brightness of the infrared channel.</li>
     </ul>
 </script>
 
@@ -177,7 +182,8 @@ RED.nodes.registerType("lifx-set-state", {
     power: { value: "" },
     color: { value: "" },
     brightness: { value: "" },
-    duration: { value: "" }
+    duration: { value: "" },
+    infrared: { value: "" }
   },
   inputs: 1,
   outputs: 0,
@@ -216,6 +222,7 @@ RED.nodes.registerType("lifx-set-state", {
             <li> <code>color</code>: The color to set the light to.</li>
             <li> <code>brightness</code>: The brightness level from 0.0 to 1.0. Overrides any brightness set in color (if any).</li>
             <li> <code>duration</code>: How long in seconds you want the power action to take.</li>
+            <li> <code>infrared</code>: The maximum brightness of the infrared channel.</li>
         </ul>
         <li> <code>defaults</code></li>
         <ul>
@@ -223,6 +230,7 @@ RED.nodes.registerType("lifx-set-state", {
             <li> <code>color</code>: The color to set the light to.</li>
             <li> <code>brightness</code>: The brightness level from 0.0 to 1.0. Overrides any brightness set in color (if any).</li>
             <li> <code>duration</code>: How long in seconds you want the power action to take.</li>
+            <li> <code>infrared</code>: The maximum brightness of the infrared channel.</li>
         </ul>
     </ul>
 </script>

@@ -1,28 +1,34 @@
 # node-red-contrib-lifx-api
+
 [![npm version](https://badge.fury.io/js/node-red-contrib-lifx-api.svg)](https://badge.fury.io/js/node-red-contrib-lifx-api)
 
 A collection of [Node-RED](http://nodered.org/) nodes to control [LIFX](http://www.lifx.com/) globes using the HTTP Remote Control API.
 
 ## Installation
+
 Run the following command in the root directory of your Node-RED install
 
     npm install node-red-contrib-lifx-api
 
 ## HTTP versus LAN
+
 LIFX has two methods of interacting with their globes:
+
 * HTTP Remote Control API
 * LAN Protocol
 
 The Node-RED node [node-red-contrib-lifx2](https://www.npmjs.com/package/node-red-contrib-lifx2) is based on the LAN Protocol, while
-these nodes utilize the HTTP Remote Control API.  The HTTP API allows the
+these nodes utilize the HTTP Remote Control API. The HTTP API allows the
 implementation to be on a different network e.g. on Bluemix, and provides
 higher level operations, such as:
+
 * Breathe effect - slowly fading between two colours
 * Pulse effect - quickly flashing between two colours
 * Activate scene - activates a scene from the users account
 
 ## Pre-requisites
-You will need a LIFX access token - see [LIFX Developer Documentation](https://api.developer.lifx.com/docs/authentication).  
+
+You will need a LIFX access token - see [LIFX Developer Documentation](https://api.developer.lifx.com/docs/authentication).
 
 Rate limiting is performed by LIFX on a per user, per application basis, effectively making it per access token.
 
@@ -31,12 +37,14 @@ Currently, each access token is limited to 60 requests for a 60 second window, h
 If you breach the rate limit, you will receive a status code of `429 Too Many Requests`.
 
 ## Usage
+
 Separate nodes are provided for each of the capabilities of the LIFX HTTP Remote Control API.
 Each node can be configured, or can receive settings in the triggering `msg`.
 
 Refer to the LIFX documentation for [Selectors](https://api.developer.lifx.com/docs/selectors) and [Colors](https://api.developer.lifx.com/docs/colors).
 
 ### List Lights
+
 Gets lights belonging to the authenticated account. Filter the lights using selectors.
 Properties such as id, label, group and location can be used in selectors.
 
@@ -60,6 +68,7 @@ Sample output `msg.payload`:
           "saturation": 0.5,
           "kelvin": 3500
         },
+        "infrared": 1.0,
         "brightness": 0.5,
         "group": {
           "id": "1c8de82b81f445e7cfaafae49b259c71",
@@ -77,13 +86,18 @@ Sample output `msg.payload`:
           "identifier": "lifx_original_1000",
           "capabilities": {
             "has_color": true,
-            "has_variable_color_temp": true
+            "has_variable_color_temp": true,
+            "min_kelvin": 2500,
+            "max_kelvin": 9000,
+            "has_ir": true,
+            "has_multizone": false
           }
         }
       }
     ]
 
 ### Set State
+
 Sets the state of the lights within the selector. All parameters (except for the selector) are optional. If you don't supply a parameter, the node will leave that value untouched.
 
 Sample input `msg.payload`:
@@ -93,11 +107,12 @@ Sample input `msg.payload`:
         "power": "on",
         "color": "blue saturation:0.5",
         "brightness": 0.5,
-        "duration": 5
+        "duration": 5,
+        "infrared": 1.0
     }
 
-
 ### Set States
+
 This node allows you to set different states on multiple selectors in a single request.
 
 Each hash in `states` is comprised of a state hash as per Set State.
@@ -123,6 +138,7 @@ Sample input `msg.payload`:
     }
 
 ### Toggle Power
+
 Turn off lights if any of them are on, or turn them on if they are all off. All lights matched by the selector will share the same power state after this action. Physically powered off lights are ignored.
 
 Sample input `msg.payload`:
@@ -132,6 +148,7 @@ Sample input `msg.payload`:
     }
 
 ### Breathe Effect
+
 Performs a breathe effect by slowly fading between the given colors.
 
 Sample input `msg.payload`:
@@ -148,6 +165,7 @@ Sample input `msg.payload`:
     }
 
 ### Pulse Effect
+
 Performs a pulse effect by quickly flashing between the given colors.
 
 Sample input `msg.payload`:
@@ -163,6 +181,7 @@ Sample input `msg.payload`:
     }
 
 ### Cycle
+
 This node lets you easily have a set of lights transition to the next state in a list of states you supply without having to implement client side logic to calculate the next state in the sequence.
 
 The API scores each state hash against the current states of all the lights in the selector, and if the score is high enough to be considered a match, it will apply the next state in the list, looping back to the first one if necessary. If there's no close match, it will apply the closest state to the selector.

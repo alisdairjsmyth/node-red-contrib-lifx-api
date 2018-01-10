@@ -25,7 +25,7 @@ module.exports = function(RED) {
   RED.nodes.registerType("lifx-config", lifxConfig);
 
   function defaultTo(val, def) {
-    return typeof val != "undefined" ? val : ((def != "") ? def : null);
+    return typeof val != "undefined" ? val : def != "" ? def : null;
   }
 
   function togglePower(config) {
@@ -159,6 +159,7 @@ module.exports = function(RED) {
     this.color = config.color;
     this.brightness = config.brightness;
     this.duration = config.duration;
+    this.infrared = config.infrared;
 
     var lifx = new lifxObj({ bearerToken: this.api.token });
     var node = this;
@@ -169,7 +170,8 @@ module.exports = function(RED) {
         power: defaultTo(msg.payload.power, this.power),
         color: defaultTo(msg.payload.color, this.color),
         brightness: defaultTo(msg.payload.brightness, this.brightness),
-        duration: defaultTo(msg.payload.duration, this.duration)
+        duration: defaultTo(msg.payload.duration, this.duration),
+        infrared: defaultTo(msg.payload.infrared, this.infrared)
       };
       lifx.setState(selector, settings, function(err, data) {
         if (err) {
