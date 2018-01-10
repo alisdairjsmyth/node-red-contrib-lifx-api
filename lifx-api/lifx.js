@@ -225,4 +225,25 @@ module.exports = function(RED) {
     });
   }
   RED.nodes.registerType("lifx-cycle", cycle);
+
+  function listScenes(config) {
+    RED.nodes.createNode(this, config);
+
+    // Retrieve the config node
+    this.api = RED.nodes.getNode(config.api);
+
+    var lifx = new lifxObj({ bearerToken: this.api.token });
+    var node = this;
+    this.on("input", function(msg) {
+      lifx.listScenes(function(err, data) {
+        if (err) {
+          node.error(err);
+          return;
+        }
+        msg.payload = data;
+        node.send(msg);
+      });
+    });
+  }
+  RED.nodes.registerType("lifx-list-scenes", listScenes);
 };

@@ -531,3 +531,62 @@ RED.nodes.registerType("lifx-cycle", {
   }
 });
 </script>
+
+<!--
+  List Scenes Node
+-->
+<script type="text/x-red" data-template-name="lifx-list-scenes">
+    <div class="form-row">
+        <label for="node-input-api"><i class="fa fa-key"></i> <span data-i18n="lifx-api.label.api"></span></label>
+        <input type="text" id="node-input-api">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="lifx-api.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]lifx-api.placeholder.name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="lifx-list-scenes">
+    <p>Lists all the scenes available in the users account. Scenes listed here can be activated with the Activate Scene endpoint.</p>
+    <p>The node emits <code>msg.payload</code> containing a collection of scene objects.</li>
+    <ul>
+        <li> <code>uuid</code></li>
+        <li> <code>name</code></li>
+        <li> <code>account</code></li>
+        <ul>
+            <li> <code>uuid</code></li>
+        </ul>
+        <li> <code>states</code> (collection)</li>
+        <ul>
+            <li> <code>selector</code><li>
+            <li> <code>power</code></li>
+            <li> <code>brightness</code></li>
+            <li> <code>color</code></li>
+            <ul>
+                <li> <code>hue</code></li>
+                <li> <code>saturation</code></li>
+                <li> <code>kelvin</code></li>
+            </ul>
+            <li> <code>infrared</code></li>
+        </ul>
+        <li> <code>created_at</code></li>
+        <li> <code>updated_at</code></li>
+    </ul>
+</script>
+
+<script type="text/javascript">
+RED.nodes.registerType("lifx-list-scenes", {
+  category: "lifx",
+  defaults: {
+    name: { value: "" },
+    api: { value: "", type: "lifx-config" }
+  },
+  inputs: 1,
+  outputs: 1,
+  icon: "light.png",
+  color: "#FFFFFF",
+  label: function() {
+    return this.name || "List Scenes";
+  }
+});
+</script>
