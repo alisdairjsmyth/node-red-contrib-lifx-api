@@ -590,3 +590,59 @@ RED.nodes.registerType("lifx-list-scenes", {
   }
 });
 </script>
+
+<!--
+  Activate Scene Node
+-->
+<script type="text/x-red" data-template-name="lifx-activate-scene">
+    <div class="form-row">
+        <label for="node-input-api"><i class="fa fa-key"></i> <span data-i18n="lifx-api.label.api"></span></label>
+        <input type="text" id="node-input-api">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="lifx-api.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]lifx-api.placeholder.name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-selector"><i class="fa fa-lightbulb-o"></i> <span data-i18n="lifx-api.label.selector"></span></label>
+        <input type="text" id="node-input-selector" data-i18n="[placeholder]lifx-api.placeholder.selector">
+    </div>
+    <div class="form-row">
+        <label for="node-input-duration"></i> <span data-i18n="lifx-api.label.duration"></span></label>
+        <input type="text" id="node-input-duration" data-i18n="[placeholder]lifx-api.placeholder.scene_duration">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="lifx-activate-scene">
+    <p>Activates a scene from the users account.</p>
+    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
+    <ul>
+        <li> <code>selector</code>: The selector for the scene you wish to activate.</li>
+        <li> <code>duration</code>: The time in seconds to spend performing the scene transition.</li>
+    </ul>
+    <p>The node emits <code>msg.payload</code> containing a collection of results objects.</li>
+    <ul>
+        <li> <code>status</code></li>
+        <li> <code>label</code></li>
+        <li> <code>id</code></li>
+    </ul>
+</script>
+
+<script type="text/javascript">
+RED.nodes.registerType("lifx-activate-scene", {
+  category: "lifx",
+  defaults: {
+    name: { value: "" },
+    api: { value: "", type: "lifx-config" },
+    selector: { value: "" },
+    duration: { value: "" }
+  },
+  inputs: 1,
+  outputs: 1,
+  icon: "light.png",
+  color: "#FFFFFF",
+  label: function() {
+    return this.name || "Activate Scene";
+  }
+});
+</script>

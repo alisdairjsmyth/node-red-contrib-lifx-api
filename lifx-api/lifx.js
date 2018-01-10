@@ -246,4 +246,30 @@ module.exports = function(RED) {
     });
   }
   RED.nodes.registerType("lifx-list-scenes", listScenes);
+
+  function activateScene(config) {
+    RED.nodes.createNode(this, config);
+    this.selector = config.selector;
+
+    // Retrieve the config node
+    this.api = RED.nodes.getNode(config.api);
+    this.duration = config.duration;
+
+    var lifx = new lifxObj({ bearerToken: this.api.token });
+    var node = this;
+    this.on("input", function(msg) {
+      msg.payload = defaultTo(msg.payload, {});
+      var selector = defaultTo(msg.payload.selector, this.selector);
+      var duration = defaultTo(msg.payload.duration, this.duration);
+      lifx.setState(selector, duration, function(err, data) {
+        if (err) {
+          node.error(err);
+          return;
+        }
+        msg.payload = data;
+        node.send(msg);
+      });
+    });
+  }
+  RED.nodes.registerType("lifx-activate-scene", activateScene);
 };
