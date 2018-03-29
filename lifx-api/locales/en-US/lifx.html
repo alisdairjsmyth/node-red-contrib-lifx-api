@@ -158,59 +158,71 @@
 </script>
 
 <script type="text/x-red" data-help-name="lifx-list-scenes">
-    <p>Lists all the scenes available in the users account. Scenes listed here can be activated with the Activate Scene endpoint.</p>
-    <p>The node emits <code>msg.payload</code> containing a collection of scene objects.</li>
+  <p>Lists all the scenes available in the users account.</p>
+
+  <h3>Outputs</h3>
+    <dl class="message-properties">
+      <dt>payload
+        <span class="property-type">Object</span>
+      </dt>
+      <dd>Array of scene objects</dd>
+    </dl>
+
+  <h3>References</h3>
     <ul>
-        <li> <code>uuid</code></li>
-        <li> <code>name</code></li>
-        <li> <code>account</code></li>
-        <ul>
-            <li> <code>uuid</code></li>
-        </ul>
-        <li> <code>states</code> (collection)</li>
-        <ul>
-            <li> <code>selector</code><li>
-            <li> <code>power</code></li>
-            <li> <code>brightness</code></li>
-            <li> <code>color</code></li>
-            <ul>
-                <li> <code>hue</code></li>
-                <li> <code>saturation</code></li>
-                <li> <code>kelvin</code></li>
-            </ul>
-            <li> <code>infrared</code></li>
-        </ul>
-        <li> <code>created_at</code></li>
-        <li> <code>updated_at</code></li>
-    </ul>
+      <li><a href="https://github.com/alisdairjsmyth/node-red-contrib-lifx-api">Github</a> - the nodes github repository</li>
+      <li><a href="https://api.developer.lifx.com/docs/list-scenes">List Scenes</a> - API documentation</li>
+      </ul>
 </script>
 
 <script type="text/x-red" data-help-name="lifx-activate-scene">
-    <p>Activates a scene from the users account.</p>
-    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
+  <p>Activates a scene from the users account.</p>
+
+  <h3>Inputs</h3>
+    <dl class="message-properties">
+      <dt class="optional">payload
+        <span class="property-type">Object</span>
+      </dt>
+      <dd>Object containing scene activation parameters</dd>
+    </dl>
+
+  <h3>Outputs</h3>
+    <dl class="message-properties">
+      <dt>payload
+        <span class="property-type">Object</span>
+      </dt>
+      <dd>Object scene activation results</dd>
+    </dl>
+
+  <h3>References</h3>
     <ul>
-        <li> <code>selector</code>: The selector for the scene you wish to activate.</li>
-        <li> <code>duration</code>: The time in seconds to spend performing the scene transition.</li>
-    </ul>
-    <p>The node emits <code>msg.payload</code> containing a collection of results objects.</li>
-    <ul>
-        <li> <code>status</code></li>
-        <li> <code>label</code></li>
-        <li> <code>id</code></li>
-    </ul>
+      <li><a href="https://github.com/alisdairjsmyth/node-red-contrib-lifx-api">Github</a> - the nodes github repository</li>
+      <li><a href="https://api.developer.lifx.com/docs/activate-scene">Activate Scene</a> - API documentation</li>
+      </ul>
 </script>
 
 <script type="text/x-red" data-help-name="lifx-validate-color">
-    <p>This endpoint lets you validate a users color string and return the hue, saturation, brightness and kelvin values that the API will interpret as.</p>
-    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
+  <p>This endpoint lets you validate a users color string.</p>
+
+  <h3>Inputs</h3>
+    <dl class="message-properties">
+      <dt class="optional">payload
+        <span class="property-type">Object</span>
+      </dt>
+      <dd>Colour to be validated</dd>
+    </dl>
+
+  <h3>Outputs</h3>
+    <dl class="message-properties">
+      <dt>payload
+        <span class="property-type">Object</span>
+      </dt>
+      <dd>Colour Object</dd>
+    </dl>
+
+  <h3>References</h3>
     <ul>
-        <li> <code>color</code>: Color string to validate.</li>
-    </ul>
-    <p>If the color is valid, the node emits <code>msg.payload</code> containing a color object.</li>
-    <ul>
-        <li> <code>hue</code></li>
-        <li> <code>saturation</code></li>
-        <li> <code>brightness</code></li>
-        <li> <code>kelvin</code><li>
-    </ul>
+      <li><a href="https://github.com/alisdairjsmyth/node-red-contrib-lifx-api">Github</a> - the nodes github repository</li>
+      <li><a href="https://api.developer.lifx.com/docs/validate-color">Validate Color</a> - API documentation</li>
+      </ul>
 </script>
