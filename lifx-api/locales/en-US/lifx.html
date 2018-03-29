@@ -28,16 +28,25 @@
 </script>
 
 <script type="text/x-red" data-help-name="lifx-set-state">
-    <p>Sets the state of the lights within the selector. All parameters (except for the selector) are optional. If you do not supply a parameter, the node will leave that value untouched.</p>
-    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
+  <p>Sets the state of the lights within the selector.</p>
+
+  <h3>Inputs</h3>
+    <dl class="message-properties">
+      <dt class="optional">payload
+        <span class="property-type">Object</span>
+      </dt>
+      <dd>intended light state</dd>
+    </dl>
+
+  <h3>Details</h3>
+    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>.  All parameters (except for the selector) are optional. If you do not supply a parameter, the node will leave that value untouched.</p>
+
+  <h3>References</h3>
     <ul>
-        <li> <code>selector</code>: The selector to limit which lights are toggled.</li>
-        <li> <code>power</code>: The power state you want to set on the selector. on or off</li>
-        <li> <code>color</code>: The color to set the light to.</li>
-        <li> <code>brightness</code>: The brightness level from 0.0 to 1.0. Overrides any brightness set in color (if any).</li>
-        <li> <code>duration</code>: How long in seconds you want the power action to take.</li>
-        <li> <code>infrared</code>: The maximum brightness of the infrared channel.</li>
+      <li><a href="https://github.com/alisdairjsmyth/node-red-contrib-lifx-api">Github</a> - the nodes github repository</li>
+      <li><a href="https://api.developer.lifx.com/docs/set-state">Set State</a> - API documentation</li>
     </ul>
+
 </script>
 
 <script type="text/x-red" data-help-name="lifx-set-states">
