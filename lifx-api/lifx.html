@@ -58,51 +58,6 @@ RED.nodes.registerType("lifx-config", {
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="lifx-list-lights">
-    <p>Gets lights belonging to the authenticated account.</p>
-    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
-    <ul>
-        <li> <code>selector</code>: The selector to limit which lights are to be listed.</li>
-    </ul>
-    <p>The node emits <code>msg.payload</code> containing a collection of light objects.</li>
-    <ul>
-        <li> <code>id</code></li>
-        <li> <code>uuid</code></li>
-        <li> <code>label</code></li>
-        <li> <code>connected</code></li>
-        <li> <code>power</code></li>
-        <li> <code>color</code></li>
-        <ul>
-            <li> <code>hue</code></li>
-            <li> <code>saturation</code></li>
-            <li> <code>kelvin</code></li>
-        </ul>
-        <li> <code>brightness</code></li>
-        <li> <code>group</code></li>
-        <ul>
-            <li> <code>id</code></li>
-            <li> <code>name</code></li>
-        </ul>
-        <li> <code>location</code></li>
-        <ul>
-            <li> <code>id</code></li>
-            <li> <code>name</code></li>
-        </ul>
-        <li> <code>last_seen</code></li>
-        <li> <code>seconds_since_seen</code></li>
-        <li> <code>product</code></li>
-        <ul>
-            <li> <code>name</code></li>
-            <li> <code>company</code></li>
-            <li> <code>capabilities</code></li>
-            <ul>
-                <li> <code>has_colour</code></li>
-                <li> <code>has_variable_color_temp</code></li>
-            </ul>
-        </ul>
-    </ul>
-</script>
-
 <script type="text/javascript">
 RED.nodes.registerType("lifx-list-lights", {
   category: "lifx",
@@ -159,19 +114,6 @@ RED.nodes.registerType("lifx-list-lights", {
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="lifx-set-state">
-    <p>Sets the state of the lights within the selector. All parameters (except for the selector) are optional. If you do not supply a parameter, the node will leave that value untouched.</p>
-    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
-    <ul>
-        <li> <code>selector</code>: The selector to limit which lights are toggled.</li>
-        <li> <code>power</code>: The power state you want to set on the selector. on or off</li>
-        <li> <code>color</code>: The color to set the light to.</li>
-        <li> <code>brightness</code>: The brightness level from 0.0 to 1.0. Overrides any brightness set in color (if any).</li>
-        <li> <code>duration</code>: How long in seconds you want the power action to take.</li>
-        <li> <code>infrared</code>: The maximum brightness of the infrared channel.</li>
-    </ul>
-</script>
-
 <script type="text/javascript">
 RED.nodes.registerType("lifx-set-state", {
   category: "lifx",
@@ -209,32 +151,6 @@ RED.nodes.registerType("lifx-set-state", {
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="lifx-set-states">
-    <p>This node allows you to set different states on multiple selectors in a single request.</p>
-    <p>Each hash in states is comprised of a state hash as per Set State, except with the inclusion of selector.</p>
-    <p>You can optionally use the defaults hash to specify the base hash that each state hash is built from.</p>
-    <p>The node only receives its parameters in <code>msg.payload</code>:</p>
-    <ul>
-        <li> <code>states</code></li>
-        <ul>
-            <li> <code>selector</code>: The selector to limit which lights are toggled.</li>
-            <li> <code>power</code>: The power state you want to set on the selector. on or off</li>
-            <li> <code>color</code>: The color to set the light to.</li>
-            <li> <code>brightness</code>: The brightness level from 0.0 to 1.0. Overrides any brightness set in color (if any).</li>
-            <li> <code>duration</code>: How long in seconds you want the power action to take.</li>
-            <li> <code>infrared</code>: The maximum brightness of the infrared channel.</li>
-        </ul>
-        <li> <code>defaults</code></li>
-        <ul>
-            <li> <code>power</code>: The power state you want to set on all selectors. on or off</li>
-            <li> <code>color</code>: The color to set the light to.</li>
-            <li> <code>brightness</code>: The brightness level from 0.0 to 1.0. Overrides any brightness set in color (if any).</li>
-            <li> <code>duration</code>: How long in seconds you want the power action to take.</li>
-            <li> <code>infrared</code>: The maximum brightness of the infrared channel.</li>
-        </ul>
-    </ul>
-</script>
-
 <script type="text/javascript">
 RED.nodes.registerType("lifx-set-states", {
   category: "lifx",
@@ -268,14 +184,6 @@ RED.nodes.registerType("lifx-set-states", {
         <label for="node-input-selector"><i class="fa fa-lightbulb-o"></i> <span data-i18n="lifx-api.label.selector"></span></label>
         <input type="text" id="node-input-selector" data-i18n="[placeholder]lifx-api.placeholder.selector">
     </div>
-</script>
-
-<script type="text/x-red" data-help-name="lifx-toggle-power">
-    <p>Turn off lights if any of them are on, or turn them on if they are all off. All lights matched by the selector will share the same power state after this action. Physically powered off lights are ignored.</p>
-    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
-    <ul>
-        <li> <code>selector</code>: The selector to limit which lights are toggled.</li>
-    </ul>
 </script>
 
 <script type="text/javascript">
@@ -337,20 +245,6 @@ RED.nodes.registerType("lifx-toggle-power", {
         <input type="text" id="node-input-power_on" data-i18n="[placeholder]lifx-api.placeholder.power_on">
     </div>
 
-</script>
-
-<script type="text/x-red" data-help-name="lifx-pulse-effect">
-    <p>Performs a pulse effect by quickly flashing between the given colors. Use the parameters to tweak the effect.</p>
-    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
-    <ul>
-        <li> <code>selector</code>: The selector to limit which lights will run the effect.</li>
-        <li> <code>color</code>: The color to use for the pulse effect.</li>
-        <li> <code>from_color</code>: The color to start the effect from.</li>
-        <li> <code>period</code>: The time in seconds for one cyles of the effect.</li>
-        <li> <code>cycles</code>: The number of times to repeat the effect.</li>
-        <li> <code>persist</code>: If false set the light back to its previous value when effect ends, if true leave the last effect color.</li>
-        <li> <code>power_on</code>: If true, turn the bulb on if it is not already on.</li>
-    </ul>
 </script>
 
 <script type="text/javascript">
@@ -424,21 +318,6 @@ RED.nodes.registerType("lifx-pulse-effect", {
 
 </script>
 
-<script type="text/x-red" data-help-name="lifx-breathe-effect">
-    <p>Performs a breathe effect by slowly fading between the given colors. Use the parameters to tweak the effect.</p>
-    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
-    <ul>
-        <li> <code>selector</code>: The selector to limit which lights will run the effect.</li>
-        <li> <code>color</code>: The color to use for the pulse effect.</li>
-        <li> <code>from_color</code>: The color to start the effect from.</li>
-        <li> <code>period</code>: The time in seconds for one cyles of the effect.</li>
-        <li> <code>cycles</code>: The number of times to repeat the effect.</li>
-        <li> <code>persist</code>: If false set the light back to its previous value when effect ends, if true leave the last effect color.</li>
-        <li> <code>power_on</code>: If true, turn the bulb on if it is not already on.</li>
-        <li> <code>peak</code>: Defines where in a period the target color is at its maximum. Minimum 0.0, maximum 1.0.</li>
-    </ul>
-</script>
-
 <script type="text/javascript">
 RED.nodes.registerType("lifx-breathe-effect", {
   category: "lifx",
@@ -488,32 +367,6 @@ RED.nodes.registerType("lifx-breathe-effect", {
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="lifx-cycle">
-    <p>This node lets you easily have a set of lights transition to the next state in a list of states you supply without having to implement client side logic to calculate the next state in the sequence.</p>
-    <p>The underlying API scores each state hash against the current states of all the lights in the selector, and if the score is high enough to be considered a match, it will apply the next state in the list, looping back to the first one if necessary. If there is no close match, it will apply the closest state to the selector.</p>
-    <p>You can optionally use the defaults hash to specify the base hash that each state hash is built from.</p>
-    <p>The optional direction parameter determines the direction the API uses to determine the next state.
-    <p>The node only receives its cycle parameters in <code>msg.payload</code>:</p>
-    <ul>
-        <li> <code>selector</code></li>
-        <li> <code>states</code></li>
-        <ul>
-            <li> <code>power</code>: The power state you want to set on the selector. on or off</li>
-            <li> <code>color</code>: The color to set the light to.</li>
-            <li> <code>brightness</code>: The brightness level from 0.0 to 1.0. Overrides any brightness set in color (if any).</li>
-            <li> <code>duration</code>: How long in seconds you want the power action to take.</li>
-        </ul>
-        <li> <code>defaults</code></li>
-        <ul>
-            <li> <code>power</code>: The power state you want to set on all selectors. on or off</li>
-            <li> <code>color</code>: The color to set the light to.</li>
-            <li> <code>brightness</code>: The brightness level from 0.0 to 1.0. Overrides any brightness set in color (if any).</li>
-            <li> <code>duration</code>: How long in seconds you want the power action to take.</li>
-        </ul>
-        <li> <code>direction</code>: Direction in which to cycle through the list. Can be forward or backward</li>
-    </ul>
-</script>
-
 <script type="text/javascript">
 RED.nodes.registerType("lifx-cycle", {
   category: "lifx",
@@ -544,34 +397,6 @@ RED.nodes.registerType("lifx-cycle", {
         <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="lifx-api.label.name"></span></label>
         <input type="text" id="node-input-name" data-i18n="[placeholder]lifx-api.placeholder.name">
     </div>
-</script>
-
-<script type="text/x-red" data-help-name="lifx-list-scenes">
-    <p>Lists all the scenes available in the users account. Scenes listed here can be activated with the Activate Scene endpoint.</p>
-    <p>The node emits <code>msg.payload</code> containing a collection of scene objects.</li>
-    <ul>
-        <li> <code>uuid</code></li>
-        <li> <code>name</code></li>
-        <li> <code>account</code></li>
-        <ul>
-            <li> <code>uuid</code></li>
-        </ul>
-        <li> <code>states</code> (collection)</li>
-        <ul>
-            <li> <code>selector</code><li>
-            <li> <code>power</code></li>
-            <li> <code>brightness</code></li>
-            <li> <code>color</code></li>
-            <ul>
-                <li> <code>hue</code></li>
-                <li> <code>saturation</code></li>
-                <li> <code>kelvin</code></li>
-            </ul>
-            <li> <code>infrared</code></li>
-        </ul>
-        <li> <code>created_at</code></li>
-        <li> <code>updated_at</code></li>
-    </ul>
 </script>
 
 <script type="text/javascript">
@@ -613,21 +438,6 @@ RED.nodes.registerType("lifx-list-scenes", {
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="lifx-activate-scene">
-    <p>Activates a scene from the users account.</p>
-    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
-    <ul>
-        <li> <code>selector</code>: The selector for the scene you wish to activate.</li>
-        <li> <code>duration</code>: The time in seconds to spend performing the scene transition.</li>
-    </ul>
-    <p>The node emits <code>msg.payload</code> containing a collection of results objects.</li>
-    <ul>
-        <li> <code>status</code></li>
-        <li> <code>label</code></li>
-        <li> <code>id</code></li>
-    </ul>
-</script>
-
 <script type="text/javascript">
 RED.nodes.registerType("lifx-activate-scene", {
   category: "lifx",
@@ -663,21 +473,6 @@ RED.nodes.registerType("lifx-activate-scene", {
         <label for="node-input-color"></i> <span data-i18n="lifx-api.label.color"></span></label>
         <input type="text" id="node-input-color" data-i18n="[placeholder]lifx-api.placeholder.validate_color">
     </div>
-</script>
-
-<script type="text/x-red" data-help-name="lifx-validate-color">
-    <p>This endpoint lets you validate a users color string and return the hue, saturation, brightness and kelvin values that the API will interpret as.</p>
-    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
-    <ul>
-        <li> <code>color</code>: Color string to validate.</li>
-    </ul>
-    <p>If the color is valid, the node emits <code>msg.payload</code> containing a color object.</li>
-    <ul>
-        <li> <code>hue</code></li>
-        <li> <code>saturation</code></li>
-        <li> <code>brightness</code></li>
-        <li> <code>kelvin</code><li>
-    </ul>
 </script>
 
 <script type="text/javascript">
