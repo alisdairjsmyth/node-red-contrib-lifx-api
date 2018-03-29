@@ -72,10 +72,23 @@
 </script>
 
 <script type="text/x-red" data-help-name="lifx-toggle-power">
-    <p>Turn off lights if any of them are on, or turn them on if they are all off. All lights matched by the selector will share the same power state after this action. Physically powered off lights are ignored.</p>
-    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
+  <p>Turn off lights if any of them are on, or turn them on if they are all off.</p>
+
+  <h3>Inputs</h3>
+    <dl class="message-properties">
+      <dt class="optional">payload.selector
+        <span class="property-type">string</span>
+      </dt>
+      <dd>selector to identify lights</dd>
+    </dl>
+
+  <h3>Details</h3>
+    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code></p>
+
+  <h3>References</h3>
     <ul>
-        <li> <code>selector</code>: The selector to limit which lights are toggled.</li>
+      <li><a href="https://github.com/alisdairjsmyth/node-red-contrib-lifx-api">Github</a> - the nodes github repository</li>
+      <li><a href="https://api.developer.lifx.com/docs/toggle-power">Toggle Power</a> - API documentation</li>
     </ul>
 </script>
 
