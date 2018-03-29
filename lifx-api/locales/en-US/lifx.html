@@ -50,28 +50,24 @@
 </script>
 
 <script type="text/x-red" data-help-name="lifx-set-states">
-    <p>This node allows you to set different states on multiple selectors in a single request.</p>
+  <p>This node allows you to set different states on multiple selectors in a single request.</p>
+
+  <h3>Inputs</h3>
+    <dl class="message-properties">
+      <dt>payload
+        <span class="property-type">Object</span>
+      </dt>
+      <dd>Array of light state hashes</dd>
+    </dl>
+
+  <h3>Details</h3>
     <p>Each hash in states is comprised of a state hash as per Set State, except with the inclusion of selector.</p>
     <p>You can optionally use the defaults hash to specify the base hash that each state hash is built from.</p>
-    <p>The node only receives its parameters in <code>msg.payload</code>:</p>
+
+  <h3>References</h3>
     <ul>
-        <li> <code>states</code></li>
-        <ul>
-            <li> <code>selector</code>: The selector to limit which lights are toggled.</li>
-            <li> <code>power</code>: The power state you want to set on the selector. on or off</li>
-            <li> <code>color</code>: The color to set the light to.</li>
-            <li> <code>brightness</code>: The brightness level from 0.0 to 1.0. Overrides any brightness set in color (if any).</li>
-            <li> <code>duration</code>: How long in seconds you want the power action to take.</li>
-            <li> <code>infrared</code>: The maximum brightness of the infrared channel.</li>
-        </ul>
-        <li> <code>defaults</code></li>
-        <ul>
-            <li> <code>power</code>: The power state you want to set on all selectors. on or off</li>
-            <li> <code>color</code>: The color to set the light to.</li>
-            <li> <code>brightness</code>: The brightness level from 0.0 to 1.0. Overrides any brightness set in color (if any).</li>
-            <li> <code>duration</code>: How long in seconds you want the power action to take.</li>
-            <li> <code>infrared</code>: The maximum brightness of the infrared channel.</li>
-        </ul>
+      <li><a href="https://github.com/alisdairjsmyth/node-red-contrib-lifx-api">Github</a> - the nodes github repository</li>
+      <li><a href="https://api.developer.lifx.com/docs/set-states">Set States</a> - API documentation</li>
     </ul>
 </script>
 
