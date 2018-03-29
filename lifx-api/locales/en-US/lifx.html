@@ -135,29 +135,26 @@
 </script>
 
 <script type="text/x-red" data-help-name="lifx-cycle">
-    <p>This node lets you easily have a set of lights transition to the next state in a list of states you supply without having to implement client side logic to calculate the next state in the sequence.</p>
+  <p>Make the light(s) cycle to the next or previous state in a list of states.</p>
+
+  <h3>Inputs</h3>
+    <dl class="message-properties">
+      <dt class="optional">payload
+        <span class="property-type">Object</span>
+      </dt>
+      <dd>state hash</dd>
+    </dl>
+
+  <h3>Details</h3>
     <p>The underlying API scores each state hash against the current states of all the lights in the selector, and if the score is high enough to be considered a match, it will apply the next state in the list, looping back to the first one if necessary. If there is no close match, it will apply the closest state to the selector.</p>
     <p>You can optionally use the defaults hash to specify the base hash that each state hash is built from.</p>
-    <p>The optional direction parameter determines the direction the API uses to determine the next state.
-    <p>The node only receives its cycle parameters in <code>msg.payload</code>:</p>
+    <p>The optional direction parameter determines the direction the API uses to determine the next state.</p>
+
+  <h3>References</h3>
     <ul>
-        <li> <code>selector</code></li>
-        <li> <code>states</code></li>
-        <ul>
-            <li> <code>power</code>: The power state you want to set on the selector. on or off</li>
-            <li> <code>color</code>: The color to set the light to.</li>
-            <li> <code>brightness</code>: The brightness level from 0.0 to 1.0. Overrides any brightness set in color (if any).</li>
-            <li> <code>duration</code>: How long in seconds you want the power action to take.</li>
-        </ul>
-        <li> <code>defaults</code></li>
-        <ul>
-            <li> <code>power</code>: The power state you want to set on all selectors. on or off</li>
-            <li> <code>color</code>: The color to set the light to.</li>
-            <li> <code>brightness</code>: The brightness level from 0.0 to 1.0. Overrides any brightness set in color (if any).</li>
-            <li> <code>duration</code>: How long in seconds you want the power action to take.</li>
-        </ul>
-        <li> <code>direction</code>: Direction in which to cycle through the list. Can be forward or backward</li>
-    </ul>
+      <li><a href="https://github.com/alisdairjsmyth/node-red-contrib-lifx-api">Github</a> - the nodes github repository</li>
+      <li><a href="https://api.developer.lifx.com/docs/cycle">Cycle</a> - API documentation</li>
+      </ul>
 </script>
 
 <script type="text/x-red" data-help-name="lifx-list-scenes">
