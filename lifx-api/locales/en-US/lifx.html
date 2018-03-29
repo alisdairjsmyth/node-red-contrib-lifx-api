@@ -93,16 +93,23 @@
 </script>
 
 <script type="text/x-red" data-help-name="lifx-pulse-effect">
-    <p>Performs a pulse effect by quickly flashing between the given colors. Use the parameters to tweak the effect.</p>
-    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
+  <p>Performs a pulse effect by quickly flashing between the given colors.</p>
+
+  <h3>Inputs</h3>
+    <dl class="message-properties">
+      <dt class="optional">payload
+        <span class="property-type">Object</span>
+      </dt>
+      <dd>pulse effect settings</dd>
+    </dl>
+
+  <h3>Details</h3>
+    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code></p>
+
+  <h3>References</h3>
     <ul>
-        <li> <code>selector</code>: The selector to limit which lights will run the effect.</li>
-        <li> <code>color</code>: The color to use for the pulse effect.</li>
-        <li> <code>from_color</code>: The color to start the effect from.</li>
-        <li> <code>period</code>: The time in seconds for one cyles of the effect.</li>
-        <li> <code>cycles</code>: The number of times to repeat the effect.</li>
-        <li> <code>persist</code>: If false set the light back to its previous value when effect ends, if true leave the last effect color.</li>
-        <li> <code>power_on</code>: If true, turn the bulb on if it is not already on.</li>
+      <li><a href="https://github.com/alisdairjsmyth/node-red-contrib-lifx-api">Github</a> - the nodes github repository</li>
+      <li><a href="https://api.developer.lifx.com/docs/pulse-effect">Pulse Effect</a> - API documentation</li>
     </ul>
 </script>
 
