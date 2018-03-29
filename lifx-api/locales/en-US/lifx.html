@@ -1,45 +1,29 @@
 <script type="text/x-red" data-help-name="lifx-list-lights">
-    <p>Gets lights belonging to the authenticated account.</p>
-    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code>:</p>
+  <p>Gets lights belonging to the authenticated account.</p>
+
+  <h3>Inputs</h3>
+    <dl class="message-properties">
+      <dt class="optional">payload.selector
+        <span class="property-type">string</span>
+      </dt>
+      <dd>selector to limit which lights are to be listed</dd>
+    </dl>
+
+  <h3>Outputs</h3>
+    <dl class="message-properties">
+      <dt>payload
+        <span class="property-type">Object</span>
+      </dt>
+      <dd>collection of light objects</dd>
+    </dl>
+
+  <h3>Details</h3>
+    <p>The node can be configured in the Edit Dialog, or received as parameters in <code>msg.payload</code></p>
+
+  <h3>References</h3>
     <ul>
-        <li> <code>selector</code>: The selector to limit which lights are to be listed.</li>
-    </ul>
-    <p>The node emits <code>msg.payload</code> containing a collection of light objects.</li>
-    <ul>
-        <li> <code>id</code></li>
-        <li> <code>uuid</code></li>
-        <li> <code>label</code></li>
-        <li> <code>connected</code></li>
-        <li> <code>power</code></li>
-        <li> <code>color</code></li>
-        <ul>
-            <li> <code>hue</code></li>
-            <li> <code>saturation</code></li>
-            <li> <code>kelvin</code></li>
-        </ul>
-        <li> <code>brightness</code></li>
-        <li> <code>group</code></li>
-        <ul>
-            <li> <code>id</code></li>
-            <li> <code>name</code></li>
-        </ul>
-        <li> <code>location</code></li>
-        <ul>
-            <li> <code>id</code></li>
-            <li> <code>name</code></li>
-        </ul>
-        <li> <code>last_seen</code></li>
-        <li> <code>seconds_since_seen</code></li>
-        <li> <code>product</code></li>
-        <ul>
-            <li> <code>name</code></li>
-            <li> <code>company</code></li>
-            <li> <code>capabilities</code></li>
-            <ul>
-                <li> <code>has_colour</code></li>
-                <li> <code>has_variable_color_temp</code></li>
-            </ul>
-        </ul>
+      <li><a href="https://github.com/alisdairjsmyth/node-red-contrib-lifx-api">Github</a> - the nodes github repository</li>
+      <li><a href="https://api.developer.lifx.com/docs/list-lights">List Lights</a> - API documentation</li>
     </ul>
 </script>
 
