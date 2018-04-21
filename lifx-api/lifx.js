@@ -169,7 +169,7 @@ module.exports = function(RED) {
       var settings = {
         power: defaultTo(msg.payload.power, this.power),
         color: defaultTo(msg.payload.color, this.color),
-        brightness: defaultTo(msg.payload.brightness, this.brightness),
+        brightness: Number(defaultTo(msg.payload.brightness, this.brightness)),
         duration: defaultTo(msg.payload.duration, this.duration),
         infrared: defaultTo(msg.payload.infrared, this.infrared)
       };
