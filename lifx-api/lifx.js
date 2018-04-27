@@ -89,15 +89,12 @@ module.exports = function(RED) {
         persist: defaultToBoolean(msg.payload.persist, this.persist),
         power_on: defaultToBoolean(msg.payload.power_on, this.power_on)
       };
-      node.log(JSON.stringify(settings))
-/*
       lifx.pulse(selector, settings, function(err, data) {
         if (err) {
           node.error(err);
           return;
         }
       });
-      */
     });
   }
   RED.nodes.registerType("lifx-pulse-effect", pulseEffect);
