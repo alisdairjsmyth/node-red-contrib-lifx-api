@@ -32,6 +32,15 @@ module.exports = function(RED) {
     return Number(defaultTo(val, def))
   }
 
+  function defaultToBoolean(val, def) {
+    var tmp = defaultTo(val, def)
+    return typeof tmp === "boolean"
+      ? tmp
+      : typeof tmp === "string"
+        ? tmp.toLowerCase() === "true"
+        : null
+  }
+
   function togglePower(config) {
     RED.nodes.createNode(this, config);
     this.selector = config.selector;
@@ -75,18 +84,20 @@ module.exports = function(RED) {
       var settings = {
         color: defaultTo(msg.payload.color, this.color),
         from_color: defaultTo(msg.payload.from_color, this.from_color),
-        period: defaultTo(msg.payload.period, this.period),
-        cycles: defaultTo(msg.payload.cycles, this.cycles),
-        persist: defaultTo(msg.payload.persist, this.persist),
-        power_on: defaultTo(msg.payload.power_on, this.power_on),
-        peak: 0.5
+        period: defaultToNumber(msg.payload.period, this.period),
+        cycles: defaultToNumber(msg.payload.cycles, this.cycles),
+        persist: defaultToBoolean(msg.payload.persist, this.persist),
+        power_on: defaultToBoolean(msg.payload.power_on, this.power_on)
       };
+      node.log(JSON.stringify(settings))
+/*
       lifx.pulse(selector, settings, function(err, data) {
         if (err) {
           node.error(err);
           return;
         }
       });
+      */
     });
   }
   RED.nodes.registerType("lifx-pulse-effect", pulseEffect);
