@@ -177,7 +177,6 @@ module.exports = function(RED) {
         duration: defaultToNumber(msg.payload.duration, this.duration),
         infrared: defaultToNumber(msg.payload.infrared, this.infrared)
       };
-      node.log(JSON.stringify(settings))
       lifx.setState(selector, settings, function(err, data) {
         if (err) {
           node.error(err);
