@@ -112,6 +112,10 @@ RED.nodes.registerType("lifx-list-lights", {
         <label for="node-input-infrared"></i> <span data-i18n="lifx-api.label.infrared"></span></label>
         <input type="text" id="node-input-infrared" data-i18n="[placeholder]lifx-api.placeholder.infrared">
     </div>
+    <div class="form-row">
+        <label for="node-input-fast"></i> <span data-i18n="lifx-api.label.fast"></span></label>
+        <input type="text" id="node-input-fast" data-i18n="[placeholder]lifx-api.placeholder.fast">
+    </div>
 </script>
 
 <script type="text/javascript">
@@ -125,7 +129,8 @@ RED.nodes.registerType("lifx-set-state", {
     color: { value: "" },
     brightness: { value: "" },
     duration: { value: "" },
-    infrared: { value: "" }
+    infrared: { value: "" },
+    fast: { value: false }
   },
   inputs: 1,
   outputs: 0,

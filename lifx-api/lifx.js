@@ -29,7 +29,14 @@ module.exports = function(RED) {
   }
 
   function defaultToNumber(val, def) {
-    return Number(defaultTo(val, def))
+    var tmp = defaultTo(val, def)
+    return typeof tmp === "number"
+      ? tmp
+      : typeof tmp === "string"
+        ? tmp != ""
+          ? Number(tmp)
+          : null
+        : null
   }
 
   function defaultToBoolean(val, def) {
@@ -39,6 +46,16 @@ module.exports = function(RED) {
       : typeof tmp === "string"
         ? tmp.toLowerCase() === "true"
         : null
+  }
+
+  function prepareSettings(settings) {
+    var tmp = {}
+    for (var setting in settings) {
+      if (settings[setting] != null) {
+        tmp[setting] = settings[setting]
+      }
+    }
+    return tmp
   }
 
   function togglePower(config) {
@@ -81,14 +98,14 @@ module.exports = function(RED) {
     this.on("input", function(msg) {
       msg.payload = defaultTo(msg.payload, {});
       var selector = defaultTo(msg.payload.selector, this.selector);
-      var settings = {
+      var settings = prepareSettings({
         color: defaultTo(msg.payload.color, this.color),
         from_color: defaultTo(msg.payload.from_color, this.from_color),
         period: defaultToNumber(msg.payload.period, this.period),
         cycles: defaultToNumber(msg.payload.cycles, this.cycles),
         persist: defaultToBoolean(msg.payload.persist, this.persist),
         power_on: defaultToBoolean(msg.payload.power_on, this.power_on)
-      };
+      });
       lifx.pulse(selector, settings, function(err, data) {
         if (err) {
           node.error(err);
@@ -118,7 +135,7 @@ module.exports = function(RED) {
     this.on("input", function(msg) {
       msg.payload = defaultTo(msg.payload, {});
       var selector = defaultTo(msg.payload.selector, this.selector);
-      var settings = {
+      var settings = prepareSettings({
         color: defaultTo(msg.payload.color, this.color),
         from_color: defaultTo(msg.payload.from_color, this.from_color),
         period: defaultToNumber(msg.payload.period, this.period),
@@ -126,7 +143,7 @@ module.exports = function(RED) {
         persist: defaultToBoolean(msg.payload.persist, this.persist),
         power_on: defaultToBoolean(msg.payload.power_on, this.power_on),
         peak: defaultToNumber(msg.payload.peak, this.peak)
-      };
+      });
       lifx.breathe(selector, settings, function(err, data) {
         if (err) {
           node.error(err);
@@ -172,19 +189,22 @@ module.exports = function(RED) {
     this.brightness = config.brightness;
     this.duration = config.duration;
     this.infrared = config.infrared;
+    this.fast = config.fast;
 
     var lifx = new lifxObj({ bearerToken: this.api.token });
     var node = this;
     this.on("input", function(msg) {
       msg.payload = defaultTo(msg.payload, {});
       var selector = defaultTo(msg.payload.selector, this.selector);
-      var settings = {
+      var settings = prepareSettings({
         power: defaultTo(msg.payload.power, this.power),
         color: defaultTo(msg.payload.color, this.color),
         brightness: defaultToNumber(msg.payload.brightness, this.brightness),
         duration: defaultToNumber(msg.payload.duration, this.duration),
-        infrared: defaultToNumber(msg.payload.infrared, this.infrared)
-      };
+        infrared: defaultToNumber(msg.payload.infrared, this.infrared),
+        fast: defaultToBoolean(msg.payload.fast, this.fast)
+      });
+      node.log(JSON.stringify(settings))
       lifx.setState(selector, settings, function(err, data) {
         if (err) {
           node.error(err);

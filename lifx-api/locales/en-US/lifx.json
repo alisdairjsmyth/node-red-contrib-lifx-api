@@ -15,7 +15,8 @@
       "peak": "Peak",
       "brightness": "Brightness",
       "duration": "Duration",
-      "infrared": "Infrared"
+      "infrared": "Infrared",
+      "fast": "Fast"
     },
     "placeholder": {
       "name": "Name",
@@ -36,7 +37,8 @@
       "duration": "How long in seconds you want the power action to take.",
       "scene_duration":
         "The time in seconds to spend performing the scene transition.",
-      "infrared": "The maximum brightness of the infrared channel."
+      "infrared": "The maximum brightness of the infrared channel.",
+      "fast": "Execute the query fast, without initial state checks and wait for no results."
     },
     "error": {}
   }
