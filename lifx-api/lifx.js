@@ -28,6 +28,10 @@ module.exports = function(RED) {
     return typeof val != "undefined" ? val : def != "" ? def : null;
   }
 
+  function defaultToNumber(val, def) {
+    return Number(defaultTo(val, def))
+  }
+
   function togglePower(config) {
     RED.nodes.createNode(this, config);
     this.selector = config.selector;
@@ -169,9 +173,9 @@ module.exports = function(RED) {
       var settings = {
         power: defaultTo(msg.payload.power, this.power),
         color: defaultTo(msg.payload.color, this.color),
-        brightness: defaultTo(msg.payload.brightness, this.brightness),
-        duration: defaultTo(msg.payload.duration, this.duration),
-        infrared: defaultTo(msg.payload.infrared, this.infrared)
+        brightness: defaultToNumber(msg.payload.brightness, this.brightness),
+        duration: defaultToNumber(msg.payload.duration, this.duration),
+        infrared: defaultToNumber(msg.payload.infrared, this.infrared)
       };
       lifx.setState(selector, settings, function(err, data) {
         if (err) {
