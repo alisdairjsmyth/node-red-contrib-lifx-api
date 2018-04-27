@@ -121,11 +121,11 @@ module.exports = function(RED) {
       var settings = {
         color: defaultTo(msg.payload.color, this.color),
         from_color: defaultTo(msg.payload.from_color, this.from_color),
-        period: defaultTo(msg.payload.period, this.period),
-        cycles: defaultTo(msg.payload.cycles, this.cycles),
-        persist: defaultTo(msg.payload.persist, this.persist),
-        power_on: defaultTo(msg.payload.power_on, this.power_on),
-        peak: defaultTo(msg.payload.peak, this.peak)
+        period: defaultToNumber(msg.payload.period, this.period),
+        cycles: defaultToNumber(msg.payload.cycles, this.cycles),
+        persist: defaultToBoolean(msg.payload.persist, this.persist),
+        power_on: defaultToBoolean(msg.payload.power_on, this.power_on),
+        peak: defaultToNumber(msg.payload.peak, this.peak)
       };
       lifx.breathe(selector, settings, function(err, data) {
         if (err) {
