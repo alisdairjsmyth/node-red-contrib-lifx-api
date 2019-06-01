@@ -293,7 +293,7 @@ module.exports = function(RED) {
       msg.payload = defaultTo(msg.payload, {});
       var selector = defaultTo(msg.payload.selector, this.selector);
       var duration = defaultToNumber(msg.payload.duration, this.duration);
-      lifx.setState(selector, duration, function(err, data) {
+      lifx.activateScene(selector, duration, function(err, data) {
         if (err) {
           node.error(err);
           return;
